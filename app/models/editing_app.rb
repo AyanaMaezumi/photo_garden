@@ -1,0 +1,2 @@
+class EditingApp < ApplicationRecord
+end

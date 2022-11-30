@@ -1,0 +1,2 @@
+class ShootingEquipment < ApplicationRecord
+end
