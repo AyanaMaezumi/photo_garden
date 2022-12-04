@@ -1,0 +1,11 @@
+ようこそ、フォト活の庭へ
+ここは、初心者～プロの方まで、写真が好きな人が集まり、情報交換ができるネット上のお庭。
+投稿やコメントをするには、会員登録が必要です。
+
+<h4>写真一覧</h4>
+<% @photo.each do |photos| %>
+  <%= image_tag photos.get_imafge(100,100) %>
+  <%= customers.nickname %>
+<% end %>
+
+<%= link_to '全ての写真を見る',photos_path %>

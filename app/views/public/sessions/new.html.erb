@@ -1,17 +1,24 @@
-<h2>Log in</h2>
+<h2>ログイン</h2>
+
+会員の方はこちらからログイン
+
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+メールアドレス
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
+パスワード（6文字以上）
   <div class="field">
     <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
 
   <% if devise_mapping.rememberable? %>
+パスワード（確認用）
     <div class="field">
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
@@ -19,8 +26,11 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit "ログイン" %>
   </div>
 <% end %>
 
 <%= render "public/shared/links" %>
+
+会員登録がお済ではない方
+<%= link_to "こちら",new_customer_registration_path %>から新規登録してください

@@ -1,2 +1,14 @@
 class Photo < ApplicationRecord
+
+  has_one_attached :image
+  
+  belongs_to :customer
+
+  has_many :photo_tags
+  has_many :photo_cameras
+  has_many :photo_editing_apps
+  has_many :photo_shooting_equipments
+  has_many :photo_favorite_photos
+  has_many :photo_comments
+
 end
