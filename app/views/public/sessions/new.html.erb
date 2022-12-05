@@ -4,21 +4,17 @@
 
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-
-メールアドレス
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :メールアドレス %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-パスワード（6文字以上）
   <div class="field">
-    <%= f.label :password %><br />
+    <%= f.label :パスワード（6文字以上） %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
 
   <% if devise_mapping.rememberable? %>
-パスワード（確認用）
     <div class="field">
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>

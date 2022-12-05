@@ -1,5 +1,5 @@
 class Camera < ApplicationRecord
 
-  has_many :photo_cameras
+  has_many :photos
 
 end

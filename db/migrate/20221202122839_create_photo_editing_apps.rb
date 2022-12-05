@@ -1,6 +1,6 @@
-class CreatePfotoEditingApps < ActiveRecord::Migration[6.1]
+class CreatePhotoEditingApps < ActiveRecord::Migration[6.1]
   def change
-    create_table :pfoto_editing_apps do |t|
+    create_table :photo_editing_apps do |t|
 
       t.integer :photo_id,null: false
       t.integer :editing_apps_id,null: false

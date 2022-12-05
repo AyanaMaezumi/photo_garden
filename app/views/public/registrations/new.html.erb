@@ -3,18 +3,21 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "public/shared/error_messages", resource: resource %>
 
+  <h4>プロフィール画像</h4>
+  <%= f.file_field :image, accept: "image/*" %>
+
   <div class="field">
-    <%= f.label :nickname %><br>
+    <%= f.label :ニックネーム（こちらの名前が画面上で表示されます） %><br>
     <%= f. text_field :nickname %>
   </div>
-  
+
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :メールアドレス %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label :パスワード（6文字以上） %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
@@ -22,13 +25,30 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :パスワード（確認用） %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "新規登録" %>
   </div>
 <% end %>
 
 <%= render "public/shared/links" %>
+
+既に登録済の方
+<%= link_to "こちら",new_customer_session_path %>からログインしてください
+
+
+
+会員になると…
+
+・いいね
+
+・フォロー
+
+・コメント
+
+・投稿
+
+ができるようになります♪
