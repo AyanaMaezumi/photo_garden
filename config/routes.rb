@@ -26,10 +26,8 @@ Rails.application.routes.draw do
     get "/about" => "homes#about", as:"about"
     get "/guidance" => "homes#guidance", as:"guidance"
 
-    resources :photos do
+    resources :photos
     get "/photos/type_search" => "photos#type_search"
-      resources :comments, only: [:new, :create, :destroy]
-    end
 
     resources :customers, only: [:show, :edit, :update]
     #退会確認画面
@@ -41,6 +39,7 @@ Rails.application.routes.draw do
 
     resources :follow_members, only: [:index, :create, :destroy]
 
+    resources :comments, only: [:new, :create, :destroy]
 
     resources :reports, only: [:index] 
 
