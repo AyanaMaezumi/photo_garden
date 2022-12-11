@@ -19,6 +19,14 @@ class Photo < ApplicationRecord
   has_many :photo_comments,dependent: :destroy
   has_many :comments,through: :photo_comments
 
+  def get_image(width, height)
+    unless image.attached?
+      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    end
+    image.variant(resize_to_limit: [width, height]).processed
+  end
+
 
   #全ての中間タグを通して、タグを登録できるようにする
   def save_photo_tag(sent_tags)
