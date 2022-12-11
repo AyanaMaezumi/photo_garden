@@ -60,5 +60,3 @@ gem 'devise'
 gem 'net-smtp'
 
 gem 'kaminari','~> 1.2.1'
-
-gem 'acts-as-taggable-on', '~> 9.0'

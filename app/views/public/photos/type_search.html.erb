@@ -1,0 +1,4 @@
+<!--タグリスト-->
+<% @tag_list.each do |list|%>
+<%=list.name %>
+<%="(#{list.posts.count})" %><% end %>

@@ -1,0 +1,22 @@
+<%= image_tag @photo.get_image %><br>
+
+<h5>撮影者</h5>
+<%= image_tag @photo.customer.get_image(100,100) %>
+<%= link_to "ニックネーム", customer_path(customer.id) do %>
+<%= @photo.customer.nickname %>
+<% end %><br>
+
+<h5>使用カメラ</h5>
+  <% @camera_tags.each do |camera_tag| %>
+  <%=camera_tag.name%><%="(#{tag.photos.count})" %>
+  <% end %><br>
+
+<h5>使用加工アプリ</h5>
+  <% @editing_app_tags.each do |app_tag| %>
+  <%=app_tag.name%><%="(#{app_tag.photos.count})" %>
+  <% end %><br>
+
+<h5>撮影者コメント</h5>
+<%= @photo.introduction %>
+
+<%= link_to "編集する", edit_photo_path(@photo) ,class:"btn btn-success" %>

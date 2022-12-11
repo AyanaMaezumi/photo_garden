@@ -1,0 +1,22 @@
+<h1>写真投稿編集</h1>
+
+<%= form_with model: @photo, url: photo_path do |f| %>
+
+  <h4>写真</h4>
+  <%= f.file_field :image, accept: "image/*" %>
+
+  <h4>使用カメラ</h4>
+  <%= f.text_field :camera %>
+  
+  <h4>使用加工アプリ</h4>
+  <%= f.text_field :editing_app %>
+
+  <h4>投稿者コメント</h4>
+  <%= f.text_area :introduction %>
+  
+  <h4>タグ</h4>
+  <%= f.text_field :tag %>
+  
+  <%= f.submit '変更を保存', class:"btn btn-success" %>
+  
+<% end %>
