@@ -19,4 +19,25 @@
 <h5>撮影者コメント</h5>
 <%= @photo.introduction %><br><br>
 
+<% if @photo.customer == current_customer %>
 <%= link_to "編集する", edit_photo_path(@photo) ,class:"btn btn-success" %>
+
+<% end %>
+
+<div>
+  <p>コメント件数：<%= @photo.comments.count %></p>
+  <% @photo.comments.each do |comment| %>
+    <p><%= image_tag comment.customer.get_image(100,100) %></p>
+    <%= comment.customer.nickname %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+    <% if comment.customer == current_customer %>
+      <%= link_to "削除", photo_comment_path(comment.photo, comment), method: :delete %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@photo,@comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>

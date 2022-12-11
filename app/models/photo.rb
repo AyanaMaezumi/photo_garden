@@ -16,8 +16,7 @@ class Photo < ApplicationRecord
   has_many :photo_favorite_photos,dependent: :destroy
   has_many :favorite_photos,through: :photo_favorite_photos
 
-  has_many :photo_comments,dependent: :destroy
-  has_many :comments,through: :photo_comments
+  has_many :comments,dependent: :destroy
 
   def get_image(width, height)
     unless image.attached?
@@ -59,7 +58,7 @@ class Photo < ApplicationRecord
 
     # 古いタグを消す
     old_tags.each do |old|
-      self.cameras.delete　Camera.find_by(name: old)
+      self.cameras.delete Camera.find_by(name: old)
     end
 
     # 新しいタグを保存
@@ -79,7 +78,7 @@ class Photo < ApplicationRecord
 
     # 古いタグを消す
     old_tags.each do |old|
-      self.editing_apps.delete　EditingApp.find_by(name: old)
+      self.editing_apps.delete EditingApp.find_by(name: old)
     end
 
     # 新しいタグを保存

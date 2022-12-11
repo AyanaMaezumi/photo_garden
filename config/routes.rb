@@ -39,9 +39,12 @@ Rails.application.routes.draw do
 
     resources :follow_members, only: [:index, :create, :destroy]
 
-    resources :comments, only: [:new, :create, :destroy]
+    resources :photos do
+      resources :comments, only: [:new, :create, :destroy]
+    end
 
-    resources :reports, only: [:index] 
+
+    resources :reports, only: [:index]
 
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
