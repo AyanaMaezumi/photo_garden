@@ -9,6 +9,16 @@ class Public::CustomersController < ApplicationController
     @favorite_photos = @customer.likes
   end
 
+  def edit
+    @customer = Customer.find(params[:id])
+  end
+
+  def update
+    @customer = current_customer
+    @customer.update(customer_params)
+    redirect_to customer_path
+  end
+
   #フォロー一覧
   def followings
     customer = Customer.find(params[:id])
@@ -20,4 +30,24 @@ class Public::CustomersController < ApplicationController
     customer = Customer.find(params[:id])
     @followers = customer.followers
   end
+
+  def unsubscribe
+    @customer = current_customer
+  end
+
+  def withdrawal
+    customer = current_customer
+    # is_deletedカラムをtrueに変更することにより削除フラグを立てる
+    customer.destroy
+    reset_session
+    flash[:notice] = "退会処理を実行いたしました"
+    redirect_to root_path
+  end
+
+  private
+  def customer_params
+    params.require(:customer).permit(:nickname, :introduction, :email, :password, :image)
+  end
+
+
 end

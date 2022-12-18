@@ -39,6 +39,13 @@ Rails.application.routes.draw do
        get "favorite" => "favorites#index"
       end
     end
+    
+    
+    #退会確認画面
+    get '/customers/unsubscribe' => 'customers#unsubscribe' , as: 'unsubscribe'
+    # 論理削除用のルーティング
+    patch '/customers/withdrawal' => 'customers#withdrawal', as: 'withdrawal'
+    
 
     resources :customers, only: [:show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
@@ -50,12 +57,6 @@ Rails.application.routes.draw do
         get 'followers'
       end
     end
-
-    #退会確認画面
-    get '/customers/unsubscribe' => 'customers#unsubscribe' , as: 'unsubscribe'
-    # 論理削除用のルーティング
-    patch '/customers/withdraw' => 'customers#withdraw', as: 'withdraw'
-
 
 
     resources :photos do

@@ -6,7 +6,7 @@ class Customer < ApplicationRecord
 
   has_one_attached :image
   
-  has_many :photos
+  has_many :photos, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :likes, through: :favorites, source: :photo
   

@@ -2,24 +2,45 @@
 
 <%= form_with model: @customer, url: customer_path do |f| %>
 
-  <h4>写真</h4>
-  元画像
-  <%= image_tag f.object.image, size: '200x200' %>
-  
+  <div class="field">
+    <%= f.label :image, "プロフィール画像" %><br>
+    <% if f.object.image.attached? %>
+      <%= image_tag f.object.image, size: '200x200' %>
+      元画像
+    <% end %>
+      <%= f.file_field :image, accept: "image/*" %>
 
-  <h4>使用カメラ</h4>
-  <!--既に保存済みのデータを表示する。pluckは、呼び出したいデータを絞る（複数持ってくることも可）。-->
-  <%= f.text_field :camera_tags, value: @photo.cameras.pluck(:name) %>
+  </div>
 
-  <h4>使用加工アプリ</h4>
-  <%= f.text_field :editing_app_tags, value: @photo.editing_apps.pluck(:name) %>
+  <div class="field">
+    <%= f.label :nickname, "ニックネーム" %><br>
+    <%= f.text_field :nickname %>
+  </div>
 
-  <h4>投稿者コメント</h4>
-  <%= f.text_area :introduction %>
+  <div class="field">
+    <%= f.label :introduction, "自己紹介" %><br>
+    <%= f.text_area :introduction %>
+  </div>
 
-  <h4>タグ</h4>
-  <%= f.text_field :name_tags, value: @photo.tags.pluck(:name) %>
+  <div class="field">
+    <%= f.label :email, "メールアドレス" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
 
-  <%= f.submit '変更を保存', class:"btn btn-success" %>
+  <div class="field">
+    <%= f.label :password, "パスワード" %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "編集内容を保存" %>
+  </div>
+
+  <div class="actions">
+    <%= link_to "退会する", unsubscribe_path %>
+  </div>
 
 <% end %>
