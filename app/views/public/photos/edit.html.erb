@@ -3,7 +3,7 @@
 <%= form_with model: @photo, url: photo_path do |f| %>
 
   <h4>写真</h4>
-  <%= f.file_field :image, accept: "image/*" %>
+  <%= image_tag f.object.image, size: '200x200' %>
 
   <h4>使用カメラ</h4>
   <!--既に保存済みのデータを表示する。pluckは、呼び出したいデータを絞る（複数持ってくることも可）。-->

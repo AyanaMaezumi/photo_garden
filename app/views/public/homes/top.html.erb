@@ -5,7 +5,7 @@
 <h4>写真一覧</h4>
 <% @photo.each do |photos| %>
   <%= image_tag photos.get_image(100,100) %>
-  <%= photos.customer.nickname %>
+  <%#= photos.customer.nickname %>
 <% end %>
 
 <%= link_to '全ての写真を見る',photos_path %>

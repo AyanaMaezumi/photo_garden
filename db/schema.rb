@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2022_12_10_052605) do
     t.datetime "remember_created_at"
     t.string "nickname", null: false
     t.boolean "is_deleted", default: false, null: false
+    t.text "introduction"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_customers_on_email", unique: true
@@ -93,28 +94,9 @@ ActiveRecord::Schema.define(version: 2022_12_10_052605) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "favorite_photos", force: :cascade do |t|
+  create_table "favorites", force: :cascade do |t|
     t.integer "photo_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "follow_members", force: :cascade do |t|
     t.integer "customer_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "pfoto_comments", force: :cascade do |t|
-    t.integer "photo_id", null: false
-    t.integer "comments_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "pfoto_favorite_photos", force: :cascade do |t|
-    t.integer "photo_id", null: false
-    t.integer "favorite_photos_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -127,6 +109,13 @@ ActiveRecord::Schema.define(version: 2022_12_10_052605) do
     t.index ["camera_id"], name: "index_photo_cameras_on_camera_id"
     t.index ["photo_id", "camera_id"], name: "index_photo_cameras_on_photo_id_and_camera_id", unique: true
     t.index ["photo_id"], name: "index_photo_cameras_on_photo_id"
+  end
+
+  create_table "photo_comments", force: :cascade do |t|
+    t.integer "photo_id", null: false
+    t.integer "comments_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "photo_editing_apps", force: :cascade do |t|
@@ -152,6 +141,13 @@ ActiveRecord::Schema.define(version: 2022_12_10_052605) do
   create_table "photos", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.text "introduction", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

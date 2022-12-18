@@ -13,10 +13,14 @@ class Photo < ApplicationRecord
   has_many :photo_editing_apps,dependent: :destroy
   has_many :editing_apps,through: :photo_editing_apps
 
-  has_many :photo_favorite_photos,dependent: :destroy
-  has_many :favorite_photos,through: :photo_favorite_photos
+  has_many :favorites, dependent: :destroy
 
   has_many :comments,dependent: :destroy
+  
+  #引数で渡されたユーザidがFavoritesテーブル内に存在（exists?）するかどうかを調べる。 存在していればtrue、存在していなければfalseを返すようにしている。
+  def favorited_by?(customer)
+    favorites.exists?(customer_id: customer.id)
+  end
 
   def get_image(width, height)
     unless image.attached?
@@ -38,7 +42,7 @@ class Photo < ApplicationRecord
 
     # 古いタグを消す
     old_tags.each do |old|
-      self.tags.delete　Tag.find_by(name: old)
+      self.tags.delete Tag.find_by(name: old)
     end
 
     # 新しいタグを保存

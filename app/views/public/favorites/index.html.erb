@@ -1,0 +1,15 @@
+<h2>お気に入り写真一覧</h2>
+
+  <% @photos.each do |favorite_photos| %>
+
+  <%= link_to favorite_photos_path(favorite_photos.id) do %>
+  <%= image_tag favorite_photos.get_image(100,100) %>
+  <% end %><br>
+
+  <%= link_to customer_path(favorite_photos.customer.id) do %>
+  <%= favorite_photos.customer.nickname %>
+  <% end %><br>
+
+  <% end %>
+
+  <%= paginate @photos %>

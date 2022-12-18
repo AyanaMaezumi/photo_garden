@@ -71,6 +71,12 @@ class Public::PhotosController < ApplicationController
     end
   end
 
+  def destroy
+    @photo = Photo.find(params[:id])
+    @photo.destroy
+    redirect_to photos_path, notice: '削除完了しました:)'
+  end
+
 private
   def photo_params
     params.require(:photo).permit( :image,:introduction)

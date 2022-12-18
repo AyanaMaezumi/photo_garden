@@ -1,10 +1,42 @@
 <%= image_tag @photo.get_image(100,100) %><br>
 
+<%# a != b ＝aとbの中身が異なる ==の反対%>
+<%# @photoの投稿者とログインしているcustomerが異なっていればいいね出来る %>
+<% if @photo.customer != current_customer %>
+  <% if @photo.favorited_by?(current_customer) %>
+      <p>
+        <%= link_to photo_favorites_path(@photo), method: :delete do %>
+          ♥<%= @photo.favorites.count %> いいね
+        <% end %>
+      </p>
+      <% else %>
+      <p>
+        <%= link_to photo_favorites_path(@photo), method: :post do %>
+          ♡<%= @photo.favorites.count %> いいね
+        <% end %>
+      </p>
+  <% end %>
+<%# 投稿者とログインしているcustomerが同じであればいいねの数だけ表示する %>
+<% else %>
+  <p>
+      ♥<%= @photo.favorites.count %> いいね
+  </p>
+<% end %>
 <h5>撮影者</h5>
 <%= image_tag @photo.customer.get_image(100,100) %>
 <%= link_to customer_path(@photo.customer.id) do %>
 <%= @photo.customer.nickname %>
-<% end %><br>
+<% end %>
+
+<% if @photo.customer != current_customer %>
+  <% if current_customer.following?(@photo.customer) %>
+    <%= link_to "フォロー外す", customer_relationships_path(@photo.customer.id), method: :delete %>
+  <% else %>
+    <%= link_to "フォローする", customer_relationships_path(@photo.customer.id), method: :post %>
+  <% end %>
+<% end %>
+
+<br>
 
 <h5>使用カメラ</h5>
   <% @camera_tags.each do |camera_tag| %>
@@ -20,8 +52,8 @@
 <%= @photo.introduction %><br><br>
 
 <% if @photo.customer == current_customer %>
-<%= link_to "編集する", edit_photo_path(@photo) ,class:"btn btn-success" %>
-
+  <%= link_to "編集する", edit_photo_path(@photo) ,class:"btn btn-success" %>
+  <%= link_to "削除", photo_path(@photo), method: :delete %>
 <% end %>
 
 <div>

@@ -26,7 +26,10 @@
           <%= link_to "お気に入り一覧",favorite_photos_path %>
         </li>
         <li>
-          <%= link_to "フォロー一覧",follow_members_path %>
+          <%= link_to "フォロー一覧", followings_customer_path(current_customer) %>
+        </li>
+        <li>
+          <%= link_to "フォロワー一覧", followers_customer_path(current_customer) %>
         </li>
         <li>
           <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>

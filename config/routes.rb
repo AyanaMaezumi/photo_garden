@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'relationships/followings'
+    get 'relationships/followers'
+  end
+    get 'relationships/followings'
+    get 'relationships/followers'
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
   }
@@ -26,18 +32,31 @@ Rails.application.routes.draw do
     get "/about" => "homes#about", as:"about"
     get "/guidance" => "homes#guidance", as:"guidance"
 
-    resources :photos
+    resources :photos do
     get "/photos/type_search" => "photos#type_search"
+      resource :favorites, only: [:create, :destroy]
+      collection do
+       get "favorite" => "favorites#index"
+      end
+    end
 
-    resources :customers, only: [:show, :edit, :update]
+    resources :customers, only: [:show, :edit, :update] do
+      resource :relationships, only: [:create, :destroy]
+      collection do
+        get "relationships" => "relationships#index"
+      end
+      member do
+        get 'followings'
+        get 'followers'
+      end
+    end
+
     #退会確認画面
     get '/customers/unsubscribe' => 'customers#unsubscribe' , as: 'unsubscribe'
     # 論理削除用のルーティング
     patch '/customers/withdraw' => 'customers#withdraw', as: 'withdraw'
 
-    resources :favorite_photos, only: [:index, :create, :destroy]
 
-    resources :follow_members, only: [:index, :create, :destroy]
 
     resources :photos do
       resources :comments, only: [:new, :create, :destroy]
