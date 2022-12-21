@@ -7,7 +7,7 @@
 <%= image_tag photos.get_image(100,100) %>
 <% end %><br>
 <%= link_to admin_customer_path(photos.id) do %>
-<%= photos.nickname %><br>
+<%= photos.customer.nickname %><br>
 <% end %>
 
 <% end %>

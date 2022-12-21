@@ -1,12 +1,23 @@
 <!--タグリスト-->
 <% @tag_list.each do |tag_list|%>
-<%=tag_list.name %>
-<%="(#{tag_list.photos.count})" %><% end %>
+  <%= link_to(photos_path(type: 'tag', id: tag_list.id )) do %>
+    <%=tag_list.name %>
+    <%="(#{tag_list.photos.count})" %>
+  <% end %>
+<% end %>
 
 <% @camera_list.each do |camera_list|%>
-<%=camera_list.name %>
-<%="(#{camera_list.photos.count})" %><% end %>
+  <%= link_to(photos_path(type: 'camera', id: camera_list.id )) do %>
+    <%=camera_list.name %>
+    <%="(#{camera_list.photos.count})" %>
+  <% end %>
+<% end %>
 
 <% @editing_app_list.each do |app_list|%>
-<%=app_list.name %>
-<%="(#{app_list.photos.count})" %><% end %>
+  <%= link_to(photos_path(type: 'editing', id: app_list.id )) do %>
+    <%=app_list.name %>
+    <%="(#{app_list.photos.count})" %>
+  <% end %>
+<% end %>
+
+<%= render 'list' %>

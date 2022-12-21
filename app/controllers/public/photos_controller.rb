@@ -1,13 +1,48 @@
 class Public::PhotosController < ApplicationController
 
   def index
-    @photos = Photo.page(params[:page]).per(10)
+    #検索をかけたときの挙動
+    if params[:photo].present?
+      if params[:photo][:radio] == 'camera'
+        #photoに紐づくcamerasの情報を使えるようにする（joins）。
+        #camerasのnameが指定した文字列(photo_params[:search_name])と一致するものを引っ張り出す。
+        #"cameras.name LIKE ?"どこの列から検索するか指定している。"%#{photo_params[:search_name]}%"実際の検索するキーワードを入れてる。
+        @photos = Photo.joins(:cameras).where("cameras.name LIKE ?", "%#{photo_params[:search_name]}%").page(params[:page]).per(10)
+      elsif params[:photo][:radio] == 'editing_app'
+        #editing_app
+        @photos = Photo.joins(:editing_apps).where("editing_apps.name LIKE ?", "%#{photo_params[:search_name]}%").page(params[:page]).per(10)
+      else
+        @photos = Photo.joins(:tags).where("tags.name LIKE ?", "%#{photo_params[:search_name]}%").page(params[:page]).per(10)
+      end
+    else
+    #検索をかけていないときの挙動（初期表示）
+      if params[:type] == 'editing'
+        photo_ids = PhotoEditingApp.where(editing_app_id: params[:id]).pluck(:photo_id)
+        @photos = Photo.where(id: photo_ids).page(params[:page]).per(10)
+      elsif params[:type] == 'camera'
+        photo_ids = PhotoCamera.where(camera_id: params[:id]).pluck(:photo_id)
+        @photos = Photo.where(id: photo_ids).page(params[:page]).per(10)
+      elsif params[:type] == 'tag'
+        photo_ids = PhotoTag.where(tag_id: params[:id]).pluck(:photo_id)
+        @photos = Photo.where(id: photo_ids).page(params[:page]).per(10)
+      else
+        @photos = Photo.all.page(params[:page]).per(10)
+      end
+
+    end
   end
 
   def type_search
-    @tag_list=Tag.all
-    @camera_list=Camera.all
-    @editing_app_list=EditingApp.all
+    @camera_list = []
+    @editing_app_list = []
+    @tag_list = []
+    if params[:type] == 'camera'
+      @camera_list = Camera.all
+    elsif params[:type] == 'editing'
+      @editing_app_list = EditingApp.all
+    elsif params[:type] == 'tag'
+      @tag_list = Tag.all
+    end
   end
 
   def show
@@ -79,7 +114,7 @@ class Public::PhotosController < ApplicationController
 
 private
   def photo_params
-    params.require(:photo).permit( :image,:introduction)
+    params.require(:photo).permit( :image,:introduction, :search_name, :radio)
   end
 
 end

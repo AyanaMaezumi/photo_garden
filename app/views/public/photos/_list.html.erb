@@ -1,0 +1,33 @@
+<h1>検索</h1>
+
+<%= form_with scope: :photo, url: photos_path, method: 'get' do |f| %>
+
+  <%= f.radio_button :radio, :camera %>カメラ名
+  <br>
+  <%= f.radio_button :radio, :editing_app %>加工アプリ名
+  <br>
+
+  <%= f.text_field :search_name %>
+
+  <%= f.submit '検索' %>
+  <br>
+
+<% end %>
+
+<%= link_to 'カメラ名一覧', photo_type_search_path(type: 'camera') %>
+<br>
+<%= link_to '加工カメラ名一覧', photo_type_search_path(type: 'editing') %>
+
+<br>
+
+<%= form_with scope: :photo, url: photos_path, method: 'get' do |f| %>
+
+  <%= f.text_field :search_name %>
+
+  <%= f.submit '検索' %>
+  <br>
+
+<% end %>
+
+
+<%= link_to 'タグ名一覧', photo_type_search_path(type: 'tag') %>

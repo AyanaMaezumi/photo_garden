@@ -15,7 +15,8 @@ class ApplicationController < ActionController::Base
   #ログインしていない場合は、下記で記したURLへ飛ぶことは許可する。request.fullpath=>URL。＝＝等しい。｜｜又は。
       if request.fullpath == '/customers/sign_in' ||
         request.fullpath == '/customers/sign_up' ||
-        request.fullpath == '/photos'
+        request.fullpath == '/photos' ||
+        request.fullpath == '/admin/sign_in'
         return true
       end
   #ログインしていなくても、新規登録を許可する。
