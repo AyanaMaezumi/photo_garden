@@ -1,6 +1,8 @@
 class Photo < ApplicationRecord
 
   has_one_attached :image
+  # バリデーション
+  validate :validate_image
 
   belongs_to :customer
 
@@ -16,6 +18,7 @@ class Photo < ApplicationRecord
   has_many :favorites, dependent: :destroy
 
   has_many :comments,dependent: :destroy
+  
   
   #引数で渡されたユーザidがFavoritesテーブル内に存在（exists?）するかどうかを調べる。 存在していればtrue、存在していなければfalseを返すようにしている。
   def favorited_by?(customer)
@@ -90,6 +93,10 @@ class Photo < ApplicationRecord
       new_post_tag = EditingApp.find_or_create_by(name: new)
       self.editing_apps << new_post_tag
     end
+  end
+
+  def validate_image
+    errors.add(:image, :blank) unless image.attached?
   end
 
 end

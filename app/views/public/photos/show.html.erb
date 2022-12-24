@@ -62,8 +62,14 @@
     <p><%= image_tag comment.customer.get_image(100,100) %></p>
     <%= comment.customer.nickname %>
     <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-    <% if comment.customer == current_customer %>
+    
+    <% if current_customer.reports.find_by(comment_id: comment.id).nil? %>
       <%= link_to "通報する", reports_path(comment_id: comment.id), method: :post %>
+    <% else %>
+      通報済み
+    <% end %>
+    
+    <% if comment.customer == current_customer %>
       <%= link_to "削除", photo_comment_path(comment.photo, comment), method: :delete %>
     <% end %>
   <% end %>

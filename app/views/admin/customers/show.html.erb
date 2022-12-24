@@ -1,0 +1,24 @@
+<%= @customer.nickname %>さんの会員詳細<br>
+
+会員ID<%= @customer.id %><br>
+
+ニックネーム<%= @customer.nickname %><br>
+
+メールアドレス<%= @customer.email %><br>
+
+会員ステータス
+<% if @customer.is_deleted == false %>有効
+<% else %>退会
+<% end %><br>
+
+<%= link_to "編集する", edit_admin_customer_path(@customer) ,class:"btn btn-success" %>
+
+
+<% @photos.each do |customer_photo| %>
+
+  <%= image_tag customer_photo.get_image(100,100) %>
+  <%= link_to "削除", admin_photo_path(customer_photo), method: :delete %>
+
+<% end %>
+
+<%= paginate @photos %>

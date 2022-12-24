@@ -5,11 +5,11 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one_attached :image
-  
+
   has_many :photos, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :likes, through: :favorites, source: :photo
-  
+
   # フォローをした、されたの関係
   #relationshipsとreverse_of_relationshipsがあるが、わかりにくいため名前をつけているだけ。
   #class_name: "Relationship"でRelationshipテーブルを参照する。
@@ -19,10 +19,13 @@ class Customer < ApplicationRecord
   # 一覧画面で使う
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
-  
-  has_many :comments
-  
-  
+
+  has_many :comments, dependent: :destroy
+  has_many :reports, dependent: :destroy
+
+  validates :nickname, presence: true
+
+
   #画像の表示
   def get_image(width, height)
     unless image.attached?
@@ -31,14 +34,14 @@ class Customer < ApplicationRecord
     end
     image.variant(resize_to_limit: [width, height]).processed
   end
-  
-  
+
+
   #フォローしたときの処理
   #find_or_create_by => フォロー1回以上を阻止する。
   def follow(customer_id)
     relationships.find_or_create_by(followed_id: customer_id)
   end
-  
+
   #フォローを外すときの処理
   #(a)&.destroy => 既に外す対象が削除されているにも関わらず、削除のリクエストを送ってしまうことを阻止する。
   def unfollow(customer_id)
@@ -46,7 +49,7 @@ class Customer < ApplicationRecord
     #follow = relationships.find_by(followed_id: customer_id)
     #follow.destroy if follow
   end
-  
+
   #フォローしているか判定
   def following?(customer)
     followings.include?(customer)

@@ -58,19 +58,19 @@ class Public::PhotosController < ApplicationController
   end
 
   def create
-    photo = Photo.new(photo_params)
-    photo.customer_id=current_customer.id
+    @photo = Photo.new(photo_params)
+    @photo.customer_id=current_customer.id
     # 受け取った値を,で区切って配列にする
     tag_list=params[:photo][:name_tags].split(',')
-    camera_list=params[:photo][:camera_tags].split(',')
+    @photo.cameras.new(name: params[:photo][:camera_tags])
     editing_app_list=params[:photo][:editing_app_tags].split(',')
-    if photo.save
-      photo.save_photo_tag(tag_list)
-      photo.save_camera_tag(camera_list)
-      photo.save_editing_app_tag(editing_app_list)
-      redirect_to photo_path(photo.id),notice:'投稿完了しました:)'
+    if @photo.save
+      @photo.save_photo_tag(tag_list)
+      @photo.save_camera_tag(camera_tags)
+      @photo.save_editing_app_tag(editing_app_list)
+      redirect_to photo_path(@photo.id),notice:'投稿に成功しました:)'
     else
-      render:new
+      render:new,notice:'投稿に失敗しました'
     end
   end
 

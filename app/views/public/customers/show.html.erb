@@ -24,9 +24,11 @@
 
 <br>
 
-<% @photos.each do |customer_photos| %>
+<% @photos.each do |customer_photo| %>
 
-  <%= image_tag customer_photos.get_image(100,100) %>
+  <%= link_to photo_path(customer_photo.id) do %>
+   <%= image_tag customer_photo.get_image(100,100) %>
+  <% end %>
 
 <% end %>
 

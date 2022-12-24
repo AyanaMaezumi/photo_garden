@@ -1,0 +1,25 @@
+ja:
+  activerecord:
+    models:
+      customer: '会員'
+    attributes:
+      customer:
+        email: 'メールアドレス'
+        password: 'パスワード'
+        password_confirmation: 'パスワード確認'
+        nickname: 'ニックネーム'
+      photo:
+        cameras: 'カメラ名'
+        image: '写真'
+  errors:
+    messages:
+      not_saved: '保存されませんでした'
+  devise:
+    failure:
+      customer:
+        invalid: 'メールアドレス、又は、パスワードが一致しませんでした'
+
+  devise:
+    failure:
+      customer:
+        not_found_in_database: 'パスワードが一致しませんでした'

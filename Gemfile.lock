@@ -60,8 +60,6 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    acts-as-taggable-on (9.0.1)
-      activerecord (>= 6.0, < 7.1)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
     bcrypt (3.1.18)
@@ -166,6 +164,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
+    rails-i18n (7.0.6)
+      i18n (>= 0.7, < 2)
+      railties (>= 6.0.0, < 8)
     railties (6.1.7)
       actionpack (= 6.1.7)
       activesupport (= 6.1.7)
@@ -245,7 +246,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  acts-as-taggable-on (~> 9.0)
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
@@ -258,6 +258,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.7)
+  rails-i18n
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
   spring

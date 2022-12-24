@@ -1,0 +1,23 @@
+<h2>会員情報編集</h2>
+
+  会員ID<%= @customer.id %><br>
+
+  氏名<%= @customer.nickname %><br>
+
+  メールアドレス<%= @customer.email %><br>
+
+
+  <%= form_with model: @customer, url:admin_customer_path(@customer) do |f| %>
+
+  <div class="field">
+    <%= f.label :is_deleted, "会員ステータス"%>
+    <%= f.radio_button :is_deleted, false %>有効 <%= f.radio_button :is_deleted, true %>退会
+  </div>
+  
+  <div class="actions">
+    <%= f.submit "変更を保存" %>
+  </div>
+
+  <% end %>
+
+

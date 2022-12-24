@@ -1,15 +1,22 @@
-<h2>写真一覧（検索結果（全<%= @photos.count %>件））</h2>
+<% if customer_signed_in? %>
+  <h2>写真一覧（検索結果（全<%= @photos.count %>件））</h2>
+<% else %>
+  <h2>写真一覧</h2>
+<% end %>
 
 <% @photos.each do |photos| %>
 
-<%= link_to photo_path(photos.id) do %>
-<%= image_tag photos.get_image(100,100) %>
-<% end %><br>
+  <%= link_to photo_path(photos.id) do %>
+  <%= image_tag photos.get_image(100,100) %>
+  <% end %><br>
 
-<%= link_to customer_path(photos.customer.id) do %>
-<%= photos.customer.nickname %>
-<% end %><br>
-
+  <% if customer_signed_in? %>
+    <%= link_to customer_path(photos.customer.id) do %>
+      <%= photos.customer.nickname %>
+    <% end %><br>
+  <% else %>
+    <p><%= photos.customer.nickname %></p>
+  <% end %>
 <% end %>
 
 <%= paginate @photos %>

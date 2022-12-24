@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     resources :photos, only: [:show, :destroy]
     resources :customers, only: [:index, :show, :edit, :update, :destroy]
-    resources :reports, only: [:inde]
+    resources :reports, only: [:index, :destroy]
 
   end
 
@@ -67,7 +67,7 @@ Rails.application.routes.draw do
     end
 
 
-    resources :reports, only: [:index, :create]
+    resources :reports, only: [:create]
 
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

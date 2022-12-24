@@ -1,6 +1,20 @@
 <h2>通報コメント一覧</h2>
 
-<% @reports.each do |reports| %>
+<% @reports.each do |report| %>
 
-<
+  <!--通報された人-->
+  <%= image_tag report.comment.customer.get_image(100,100) %>
+  <%= report.comment.customer.nickname %>
   
+  <!--通報に紐づいているコメントテーブルのコメント-->
+  <%= report.comment.comment %>
+  
+  <!--通報-->
+  <%= report.customer.nickname %>
+
+  <%= link_to "削除", admin_report_path(report.id), method: :delete %>
+  
+<% end %>
+
+
+<%= paginate @reports %>
