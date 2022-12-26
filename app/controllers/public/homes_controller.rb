@@ -1,7 +1,7 @@
 class Public::HomesController < ApplicationController
-  
+
   def top
-    @photo = Photo.all
+    @photos = Photo.page(params[:page]).per(6)
   end
-  
+
 end

@@ -1,3 +1,10 @@
 <h1>フォローした人</h1>
 
-<%= render 'customers', customers: @followings %>
+<% @followings.each do |customer| %>
+  <%= link_to customer.nickname, customer %>
+
+  <%= link_to "削除", customer_relationships_path(customer), method: :delete %><br>
+
+<% end %>
+
+

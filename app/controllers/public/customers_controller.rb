@@ -15,7 +15,7 @@ class Public::CustomersController < ApplicationController
 
   def update
     @customer = current_customer
-    @customer.update(customer_params)
+    @customer.update!(customer_params)
     redirect_to customer_path
   end
 
@@ -46,7 +46,7 @@ class Public::CustomersController < ApplicationController
 
   private
   def customer_params
-    params.require(:customer).permit(:nickname, :introduction, :email, :password, :image)
+    params.require(:customer).permit(:nickname, :introduction, :email, :image)
   end
 
 

@@ -16,7 +16,7 @@
   <%= f.text_area :introduction %>
 
   <h4>タグ</h4>
-  <%= f.text_field :name_tags, value: @photo.tags.pluck(:name) %>
+  <%= f.text_field :name_tags, value: @photo.tags.pluck(:name).join(',') %>
 
   <%= f.submit '変更を保存', class:"btn btn-success" %>
 

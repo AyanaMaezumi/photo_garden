@@ -11,7 +11,7 @@ class Public::FavoritesController < ApplicationController
     photo = Photo.find(params[:photo_id])
     favorite = current_customer.favorites.find_by(photo_id: photo.id)
     favorite.destroy
-    redirect_to photo_path(photo)
+    redirect_to favorite_photos_path
   end
   
   def index
