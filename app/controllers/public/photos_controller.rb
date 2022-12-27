@@ -12,7 +12,7 @@ class Public::PhotosController < ApplicationController
         #editing_app
         @photos = Photo.joins(:editing_apps).where("editing_apps.name LIKE ?", "%#{photo_params[:search_name]}%").page(params[:page]).per(10)
       else
-        @photos = Photo.joins(:tags).where("tags.name LIKE ?", "%#{photo_params[:search_name]}%").page(params[:page]).per(10)
+        @photos = Photo.joins(:tags).where("tags.name LIKE ?", "%#{photo_params[:search_name]}%").distinct.page(params[:page]).per(10)
       end
     else
     #検索をかけていないときの挙動（初期表示）
@@ -30,18 +30,26 @@ class Public::PhotosController < ApplicationController
       end
 
     end
+
+    # 関連先のレコードの個数の昇順でtagsを取得
+    @tag_rankings = Tag.select('tags.*', 'count(photos.id) AS photos')
+                       .left_joins(:photos).group('tags.id').order('photos desc').first(3)
   end
 
   def type_search
     @camera_list = []
     @editing_app_list = []
     @tag_list = []
+    #binding.pry
     if params[:type] == 'camera'
       @camera_list = Camera.all
     elsif params[:type] == 'editing'
       @editing_app_list = EditingApp.all
     elsif params[:type] == 'tag'
       @tag_list = Tag.all
+      # 関連先のレコードの個数の昇順でtagsを取得
+      @tag_rankings = Tag.select('tags.*', 'count(photos.id) AS photos')
+                         .left_joins(:photos).group('tags.id').order('photos desc').first(3)
     end
   end
 
@@ -96,7 +104,7 @@ class Public::PhotosController < ApplicationController
         relation.delete
         end
          @photo.save_photo_tag(tag_list)
-         @photo.save_camera_tag(camera_tag)
+         @photo.save_camera_tag(camera_tags)
          @photo.save_editing_app_tag(editing_app_list)
         redirect_to photo_path(@photo.id), notice: '更新完了しました:)'
       #else redirect_to photo_path, notice: '下書きに登録しました。'
@@ -109,7 +117,7 @@ class Public::PhotosController < ApplicationController
   def destroy
     @photo = Photo.find(params[:id])
     @photo.destroy
-    redirect_to photos_path, notice: '削除完了しました:)'
+    redirect_to photos_path, notice: '削除完了しました'
   end
 
 private

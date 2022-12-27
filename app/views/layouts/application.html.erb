@@ -23,28 +23,28 @@
 
             <% if customer_signed_in? %>
               <li class="nav-item">
-                <%= link_to "投稿する",new_photo_path, class: 'nav-link text-dark' %>
+                <%= link_to "投稿する",new_photo_path, class: 'nav-link text-light' %>
               </li>
               <li>
-                <%= link_to customer_path(current_customer.id), class: 'nav-link text-dark' do %>
+                <%= link_to customer_path(current_customer.id), class: 'nav-link text-light' do %>
                   <i class="fas fa-users"></i>
                   <span>マイページ</span>
                 <% end %>
               </li>
               <li class="nav-item">
-                <%= link_to "写真一覧",photos_path, class: 'nav-link text-dark' %>
+                <%= link_to "写真一覧",photos_path, class: 'nav-link text-light' %>
               </li>
               <li class="nav-item">
-                <%= link_to "お気に入り一覧",favorite_photos_path, class: 'nav-link text-dark' %>
+                <%= link_to "お気に入り一覧",favorite_photos_path, class: 'nav-link text-light' %>
               </li>
               <li class="nav-item">
-                <%= link_to "フォロー一覧", followings_customer_path(current_customer), class: 'nav-link text-dark' %>
+                <%= link_to "フォロー一覧", followings_customer_path(current_customer), class: 'nav-link text-light' %>
               </li>
               <li class="nav-item">
-                <%= link_to "フォロワー一覧", followers_customer_path(current_customer), class: 'nav-link text-dark' %>
+                <%= link_to "フォロワー一覧", followers_customer_path(current_customer), class: 'nav-link text-light' %>
               </li>
               <li>
-                <%= link_to destroy_customer_session_path, method: :delete, class: 'nav-link text-dark' do %>
+                <%= link_to destroy_customer_session_path, method: :delete, class: 'nav-link text-light' do %>
                   <i class="fas fa-sign-out-alt"></i>
                   <span>ログアウト</span>
                 <% end %>
@@ -52,16 +52,16 @@
 
             <% elsif admin_signed_in? %>
               <li class="nav-item">
-                <%= link_to "写真一覧",admin_root_path, class: 'nav-link text-dark' %>
+                <%= link_to "写真一覧",admin_root_path, class: 'nav-link text-light' %>
               </li>
               <li class="nav-item">
-                <%= link_to "会員一覧",admin_customers_path, class: 'nav-link text-dark' %>
+                <%= link_to "会員一覧",admin_customers_path, class: 'nav-link text-light' %>
               </li>
               <li class="nav-item">
-                <%= link_to "通報コメント一覧",admin_reports_path, class: 'nav-link text-dark' %>
+                <%= link_to "通報コメント一覧",admin_reports_path, class: 'nav-link text-light' %>
               </li>
               <li>
-                <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>
+                <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>
                   <i class="fas fa-sign-out-alt"></i>
                   <span>ログアウト</span>
                 <% end %>

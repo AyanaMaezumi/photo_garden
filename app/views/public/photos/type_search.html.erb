@@ -1,15 +1,21 @@
 <!--タグリスト-->
 <% @tag_list.each do |tag_list|%>
-  <%= link_to(photos_path(type: 'tag', id: tag_list.id )) do %>
-    <%=tag_list.name %>
-    <%="(#{tag_list.photos.count})" %>
+  <% if tag_list.photos.count == 0 %>
+  <% else %>
+    <%= link_to(photos_path(type: 'tag', id: tag_list.id )) do %>
+      <%=tag_list.name %>
+      <%="(#{tag_list.photos.count})" %>
+    <% end %>
   <% end %>
 <% end %>
 
 <% @camera_list.each do |camera_list|%>
-  <%= link_to(photos_path(type: 'camera', id: camera_list.id )) do %>
-    <%=camera_list.name %>
-    <%="(#{camera_list.photos.count})" %>
+  <% if camera_list.photos.count == 0 %>
+  <% else %>
+    <%= link_to(photos_path(type: 'camera', id: camera_list.id )) do %>
+      <%=camera_list.name %>
+      <%="(#{camera_list.photos.count})" %>
+    <% end %>
   <% end %>
 <% end %>
 

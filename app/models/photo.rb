@@ -7,13 +7,13 @@ class Photo < ApplicationRecord
   belongs_to :customer
 
   has_many :photo_tags,dependent: :destroy
-  has_many :tags,through: :photo_tags
+  has_many :tags,through: :photo_tags,dependent: :destroy
 
   has_many :photo_cameras,dependent: :destroy
-  has_many :cameras,through: :photo_cameras
+  has_many :cameras,through: :photo_cameras,dependent: :destroy
 
   has_many :photo_editing_apps,dependent: :destroy
-  has_many :editing_apps,through: :photo_editing_apps
+  has_many :editing_apps,through: :photo_editing_apps,dependent: :destroy
 
   has_many :favorites, dependent: :destroy
 

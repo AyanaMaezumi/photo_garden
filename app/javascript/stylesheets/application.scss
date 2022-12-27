@@ -18,3 +18,20 @@
   width: calc((100% - 16px - 16px) / 3);
   max-width: calc((100% - 16px - 16px) / 3);
 }
+
+.box1 {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    border: solid 1px #000000;
+}
+
+
+.hr1 {
+  height: 1px;
+  background: #aaa;
+  background-image: -webkit-linear-gradient(left, #ddd, #999, #ddd);
+  background-image: -moz-linear-gradient(left, #ddd, #999, #ddd);
+  background-image: -ms-linear-gradient(left, #ddd, #999, #ddd);
+  background-image: -o-linear-gradient(left, #ddd, #999, #ddd);
+}

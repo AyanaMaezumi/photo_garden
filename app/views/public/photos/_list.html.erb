@@ -1,5 +1,9 @@
 <% if customer_signed_in? %>
-    <h1>検索</h1>
+
+  <div class="box1">
+    <h3>検索</h3>
+
+    <hr class="hr1">
 
     <%= form_with scope: :photo, url: photos_path, method: 'get' do |f| %>
 
@@ -15,11 +19,15 @@
 
     <% end %>
 
+    <hr class="hr1">
+
     <%= link_to 'カメラ名一覧', photo_type_search_path(type: 'camera') %>
     <br>
     <%= link_to '加工カメラ名一覧', photo_type_search_path(type: 'editing') %>
 
-    <br>
+    <hr class="hr1">
+
+    <h6>タグ検索</h6>
 
     <%= form_with scope: :photo, url: photos_path, method: 'get' do |f| %>
 
@@ -30,7 +38,14 @@
 
     <% end %>
 
+    <% @tag_rankings.each do |tag_ranking| %>
+      <%= link_to tag_ranking.name, (photos_path(type: 'tag', id: tag_ranking.id )) %>
+      <%#= tag_ranking.name %>
+    <% end %>
+
 
     <%= link_to 'タグ名一覧', photo_type_search_path(type: 'tag') %>
+
+  </div>
 
 <% end %>
