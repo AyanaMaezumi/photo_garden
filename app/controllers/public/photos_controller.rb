@@ -47,10 +47,10 @@ class Public::PhotosController < ApplicationController
       @editing_app_list = EditingApp.all
     elsif params[:type] == 'tag'
       @tag_list = Tag.all
-      # 関連先のレコードの個数の昇順でtagsを取得
+    end
+     # 関連先のレコードの個数の昇順でtagsを取得
       @tag_rankings = Tag.select('tags.*', 'count(photos.id) AS photos')
                          .left_joins(:photos).group('tags.id').order('photos desc').first(3)
-    end
   end
 
   def show

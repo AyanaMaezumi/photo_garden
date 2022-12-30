@@ -3,7 +3,7 @@
 <% @followings.each do |customer| %>
   <%= link_to customer.nickname, customer %>
 
-  <%= link_to "削除", customer_relationships_path(customer), method: :delete %><br>
+  <%= link_to "削除", customer_relationships_path(customer), method: :delete,, class:"btn btn-danger" %><br>
 
 <% end %>
 

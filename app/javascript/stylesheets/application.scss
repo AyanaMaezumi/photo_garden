@@ -28,10 +28,24 @@
 
 
 .hr1 {
-  height: 1px;
   background: #aaa;
   background-image: -webkit-linear-gradient(left, #ddd, #999, #ddd);
   background-image: -moz-linear-gradient(left, #ddd, #999, #ddd);
   background-image: -ms-linear-gradient(left, #ddd, #999, #ddd);
   background-image: -o-linear-gradient(left, #ddd, #999, #ddd);
+}
+
+.flex {
+  display: flex; /*横並び*/
+}
+
+.flex .text {
+  height: 54px;
+  line-height: 70px;
+  margin-left: 20px;
+  font-size: 25px;
+}
+
+.tag_box {
+  font-size: 20px;
 }

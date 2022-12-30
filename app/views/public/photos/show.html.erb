@@ -1,17 +1,19 @@
-<%= image_tag @photo.get_image(100,100) %><br>
+<div class="container">
+
+<%= image_tag @photo.get_image(400,400) %><br>
 
 <%# a != b ＝aとbの中身が異なる ==の反対%>
 <%# @photoの投稿者とログインしているcustomerが異なっていればいいね出来る %>
 <% if @photo.customer != current_customer %>
   <% if @photo.favorited_by?(current_customer) %>
       <p>
-        <%= link_to photo_favorites_path(@photo), method: :delete do %>
+        <%= link_to photo_favorites_path(@photo), method: :delete, class:"btn btn-info" do %>
           ♥<%= @photo.favorites.count %> いいね
         <% end %>
       </p>
       <% else %>
       <p>
-        <%= link_to photo_favorites_path(@photo), method: :post do %>
+        <%= link_to photo_favorites_path(@photo), method: :post, class:"btn btn-info" do %>
           ♡<%= @photo.favorites.count %> いいね
         <% end %>
       </p>
@@ -23,16 +25,19 @@
   </p>
 <% end %>
 <h5>撮影者</h5>
-<%= image_tag @photo.customer.get_image(100,100) %>
+<div class="flex">
+<%= image_tag @photo.customer.get_image(200,200),class: "rounded-circle img-thumbnail", size: '70x70' %>
+<br>
 <%= link_to customer_path(@photo.customer.id) do %>
-<%= @photo.customer.nickname %>
+<p class="text"><%= @photo.customer.nickname %></p>
+</div>
 <% end %>
 
 <% if @photo.customer != current_customer %>
   <% if current_customer.following?(@photo.customer) %>
-    <%= link_to "フォロー外す", customer_relationships_path(@photo.customer.id), method: :delete %>
+    <%= link_to "フォロー外す", customer_relationships_path(@photo.customer.id), method: :delete, class:"btn btn-danger" %>
   <% else %>
-    <%= link_to "フォローする", customer_relationships_path(@photo.customer.id), method: :post %>
+    <%= link_to "フォローする", customer_relationships_path(@photo.customer.id), method: :post, class:"btn btn-info" %>
   <% end %>
 <% end %>
 
@@ -40,20 +45,20 @@
 
 <h5>使用カメラ</h5>
   <% @camera_tags.each do |camera_tag| %>
-  <%=camera_tag.name%>
-  <% end %><br>
+  <h5><%=camera_tag.name%></h5>
+  <% end %><br><br>
 
 <h5>使用加工アプリ</h5>
-  <% @editing_app_tags.each do |app_tag| %>
+  <div class="tag_box"><% @editing_app_tags.each do |app_tag| %>
   <%=app_tag.name%>
-  <% end %><br>
+  <% end %></div><br>
 
 <h5>撮影者コメント</h5>
 <%= @photo.introduction %><br><br>
 
 <% if @photo.customer == current_customer %>
-  <%= link_to "編集する", edit_photo_path(@photo) ,class:"btn btn-success" %>
-  <%= link_to "削除", photo_path(@photo), method: :delete %>
+  <%= link_to "編集", edit_photo_path(@photo) ,class:"btn btn-success" %>
+  <%= link_to "削除", photo_path(@photo), method: :delete, class:"btn btn-danger" %>
 <% end %>
 
 <div>
@@ -62,15 +67,15 @@
     <p><%= image_tag comment.customer.get_image(100,100) %></p>
     <%= comment.customer.nickname %>
     <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-    
+
     <% if current_customer.reports.find_by(comment_id: comment.id).nil? %>
-      <%= link_to "通報する", reports_path(comment_id: comment.id), method: :post %>
+      <%= link_to "通報する", reports_path(comment_id: comment.id), method: :post, class:"btn btn-danger" %>
     <% else %>
       通報済み
     <% end %>
-    
+
     <% if comment.customer == current_customer %>
-      <%= link_to "削除", photo_comment_path(comment.photo, comment), method: :delete %>
+      <%= link_to "削除", photo_comment_path(comment.photo, comment), method: :delete, class:"btn btn-danger"%>
     <% end %>
   <% end %>
 </div>
@@ -79,4 +84,6 @@
     <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
     <%= f.submit "送信する" %>
   <% end %>
+</div>
+
 </div>

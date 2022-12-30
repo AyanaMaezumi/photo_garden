@@ -22,8 +22,11 @@
             <ul class="navbar-nav ml-auto">
 
             <% if customer_signed_in? %>
-              <li class="nav-item">
-                <%= link_to "投稿する",new_photo_path, class: 'nav-link text-light' %>
+              <li>
+                <%= link_to new_photo_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-upload""></i>
+                  <span>投稿する</span>
+                <% end %>
               </li>
               <li>
                 <%= link_to customer_path(current_customer.id), class: 'nav-link text-light' do %>
@@ -31,11 +34,17 @@
                   <span>マイページ</span>
                 <% end %>
               </li>
-              <li class="nav-item">
-                <%= link_to "写真一覧",photos_path, class: 'nav-link text-light' %>
+              <li>
+                <%= link_to photos_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-images text-light"></i>
+                  <span>写真一覧</span>
+                <% end %>
               </li>
-              <li class="nav-item">
-                <%= link_to "お気に入り一覧",favorite_photos_path, class: 'nav-link text-light' %>
+              <li>
+                <%= link_to favorite_photos_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-heart"></i>
+                  <span>お気に入り一覧</span>
+                <% end %>
               </li>
               <li class="nav-item">
                 <%= link_to "フォロー一覧", followings_customer_path(current_customer), class: 'nav-link text-light' %>
@@ -51,14 +60,23 @@
               </li>
 
             <% elsif admin_signed_in? %>
-              <li class="nav-item">
-                <%= link_to "写真一覧",admin_root_path, class: 'nav-link text-light' %>
+              <li>
+                <%= link_to admin_root_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-images text-light"></i>
+                  <span>写真一覧</span>
+                <% end %>
               </li>
-              <li class="nav-item">
-                <%= link_to "会員一覧",admin_customers_path, class: 'nav-link text-light' %>
+              <li>
+                <%= link_to admin_customers_path, class: 'nav-link text-light' do %>
+                <i class="fas fa-users"></i>
+                <span>会員一覧</span>
+                <% end %>
               </li>
-              <li class="nav-item">
-                <%= link_to "通報コメント一覧",admin_reports_path, class: 'nav-link text-light' %>
+              <li>
+                <%= link_to admin_reports_path, class: 'nav-link text-light' do %>
+                <i class="fas fa-triangle-exclamation"></i>
+                <span>通報コメント一覧</span>
+                <% end %>
               </li>
               <li>
                 <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>

@@ -17,7 +17,7 @@
 <% @photos.each do |customer_photo| %>
 
   <%= image_tag customer_photo.get_image(100,100) %>
-  <%= link_to "削除", admin_photo_path(customer_photo), method: :delete %>
+  <%= link_to "削除", admin_photo_path(customer_photo), method: :delete, class:"btn btn-danger" %>
 
 <% end %>
 

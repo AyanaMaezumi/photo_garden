@@ -10,7 +10,7 @@
     <%= favorite_photo.customer.nickname %>
   <% end %><br>
 
-  <%= link_to "削除", photo_favorites_path(favorite_photo.id), method: :delete %><br>
+  <%= link_to "削除", photo_favorites_path(favorite_photo.id), method: :delete, class:"btn btn-danger" %><br>
 
   <% end %>
 
