@@ -1,30 +1,48 @@
-<!--バリデーションエラーが発生したら以下を表示-->
-<% if @photo.errors.any? %>
-  <%= @photo.errors.count %>件のエラーが発生しました
-  <% @photo.errors.full_messages.each do |message| %>
-    <%= message %>
+<div class="container">
+
+  <!--バリデーションエラーが発生したら以下を表示-->
+  <% if @photo.errors.any? %>
+    <%= @photo.errors.count %>件のエラーが発生しました
+    <% @photo.errors.full_messages.each do |message| %>
+      <%= message %>
+    <% end %>
   <% end %>
-<% end %>
 
-<h1>写真新規投稿</h1>
+  <h2>写真新規投稿</h2><br>
 
-<%= form_with model: @photo, url: photos_path do |f| %>
+  <%= form_with model: @photo, url: photos_path do |f| %>
 
-  <h4>写真</h4>
-  <%= f.file_field :image, accept: "image/*" %>
+    <div class="field">
+      <%= f.label :image, "写真画像" %><br>
+      <%= f.file_field :image, accept: "image/*" %>
+    </div><br>
 
-  <h4>使用カメラ</h4>
-  <%= f.text_field :camera_tags %>
+    <div class="field">
+      <%= f.label :camera_tags, "使用カメラ" %><br>
+      <%= f.text_field :camera_tags %>
+    </div><br>
 
-  <h4>使用加工アプリ</h4>
-  <%= f.text_field :editing_app_tags %>
+    <div class="field">
+      <%= f.label :editing_app_tags, "使用加工アプリ" %><br>
+      <%= f.text_field :editing_app_tags %><br>
+      ※複数の加工アプリが登録できます。<br>
+      複数登録する場合は、文字と文字の間を『 , 』(半角カンマ)で区切ってください。<br>
+    </div><br>
 
-  <h4>投稿者コメント</h4>
-  <%= f.text_area :introduction %>
+    <div class="field">
+      <%= f.label :introduction, "投稿者コメント" %><br>
+      <%= f.text_area :introduction %>
+    </div><br>
 
-  <h4>タグ</h4>
-  <%= f.text_field :name_tags %>
+    <div class="field">
+      <%= f.label :name_tags, "タグ" %><br>
+      <%= f.text_field :name_tags %><br>
+      ※複数のタグが登録できます。<br>
+      複数登録する場合は、文字と文字の間を『 , 』(半角カンマ)で区切ってください。<br>
+      </div><br>
 
-  <%= f.submit '新規投稿' %>
+    <%= f.submit '新規投稿' %>
 
-<% end %>
+  <% end %>
+
+</div>

@@ -24,13 +24,14 @@
       ♥<%= @photo.favorites.count %> いいね
   </p>
 <% end %>
+
 <h5>撮影者</h5>
 <div class="flex">
 <%= image_tag @photo.customer.get_image(200,200),class: "rounded-circle img-thumbnail", size: '70x70' %>
 <br>
 <%= link_to customer_path(@photo.customer.id) do %>
 <p class="text"><%= @photo.customer.nickname %></p>
-</div>
+</div><br>
 <% end %>
 
 <% if @photo.customer != current_customer %>
@@ -41,12 +42,12 @@
   <% end %>
 <% end %>
 
-<br>
+<br><br><br>
 
 <h5>使用カメラ</h5>
   <% @camera_tags.each do |camera_tag| %>
   <h5><%=camera_tag.name%></h5>
-  <% end %><br><br>
+  <% end %><br>
 
 <h5>使用加工アプリ</h5>
   <div class="tag_box"><% @editing_app_tags.each do |app_tag| %>
@@ -59,14 +60,19 @@
 <% if @photo.customer == current_customer %>
   <%= link_to "編集", edit_photo_path(@photo) ,class:"btn btn-success" %>
   <%= link_to "削除", photo_path(@photo), method: :delete, class:"btn btn-danger" %>
-<% end %>
+<% end %><br><br>
 
 <div>
   <p>コメント件数：<%= @photo.comments.count %></p>
   <% @photo.comments.each do |comment| %>
-    <p><%= image_tag comment.customer.get_image(100,100) %></p>
-    <%= comment.customer.nickname %>
-    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+  
+ 
+    <%= image_tag comment.customer.get_image(200,200),class: "rounded-circle img-thumbnail", size: '50x50' %>
+    <%= link_to customer_path(@photo.customer.id) do %>
+    <p class="text"><%= comment.customer.nickname %></p>
+    <% end %>
+    <%= comment.comment %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %>
 
     <% if current_customer.reports.find_by(comment_id: comment.id).nil? %>
       <%= link_to "通報する", reports_path(comment_id: comment.id), method: :post, class:"btn btn-danger" %>
@@ -79,7 +85,7 @@
     <% end %>
   <% end %>
 </div>
-<div>
+<div><br>
   <%= form_with model: [@photo,@comment] do |f| %>
     <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
     <%= f.submit "送信する" %>

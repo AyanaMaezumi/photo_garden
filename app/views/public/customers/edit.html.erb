@@ -1,38 +1,39 @@
-<h1>会員情報編集</h1>
+<div class="container">
 
-<%= form_with model: @customer, url: customer_path do |f| %>
+  <h1>会員情報編集</h1><br>
+  
+  <%= form_with model: @customer, url: customer_path do |f| %>
+  
+    <div class="field">
+      <%= f.label :image, "プロフィール画像" %><br>
+      <% if f.object.image.attached? %>
+        <%= image_tag @customer.get_image(200,200) %><br>
+        （元画像）<br><br>
+      <% end %>
+        <%= f.file_field :image, accept: "image/*" %><br><br>
+  
+    </div>
+  
+    <div class="field">
+      <%= f.label :nickname, "ニックネーム" %><br>
+      <%= f.text_field :nickname %>
+    </div><br>
+  
+    <div class="field">
+      <%= f.label :introduction, "自己紹介" %><br>
+      <%= f.text_area :introduction %>
+    </div><br>
+  
+    <div class="field">
+      <%= f.label :email, "メールアドレス" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div><br><br>
+  
+    <div class="actions">
+      <%= f.submit "編集内容を保存", class:"btn btn-success" %>
+      <%= link_to "退会する", unsubscribe_path, class:"btn btn-danger" %>
+    </div><br>
+  
+  <% end %>
 
-  <div class="field">
-    <%= f.label :image, "プロフィール画像" %><br>
-    <% if f.object.image.attached? %>
-      <%= image_tag f.object.image, size: '200x200' %><br>
-      元画像<br>
-    <% end %>
-      <%= f.file_field :image, accept: "image/*" %>
-
-  </div>
-
-  <div class="field">
-    <%= f.label :nickname, "ニックネーム" %><br>
-    <%= f.text_field :nickname %>
-  </div>
-
-  <div class="field">
-    <%= f.label :introduction, "自己紹介" %><br>
-    <%= f.text_area :introduction %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "編集内容を保存", class:"btn btn-success" %>
-  </div>
-
-  <div class="actions">
-    <%= link_to "退会する", unsubscribe_path, class:"btn btn-danger" %>
-  </div>
-
-<% end %>
+</div>

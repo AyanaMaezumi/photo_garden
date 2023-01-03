@@ -33,14 +33,13 @@
       <%= f.text_field :search_name %>
 
       <%= f.submit '検索' %>
-      <br>
+      <br><br>
 
     <% end %>
 
     <% @tag_rankings.each do |tag_ranking| %>
       <%= link_to tag_ranking.name, (photos_path(type: 'tag', id: tag_ranking.id )) %>
-      <%#= tag_ranking.name %>
-    <% end %>
+    <% end %><br><br>
 
 
     <%= link_to 'タグ名一覧', photo_type_search_path(type: 'tag') %>
