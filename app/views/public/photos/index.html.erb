@@ -17,14 +17,14 @@
         <% @photos.each do |photo| %>
           <!-- card -->
           <div class="card mt-4 shadow-lg card-column-3">
+            <!-- ログインしていたら -->
+            <% if customer_signed_in? %>
             <div class="p-2">
               <!-- 写真 -->
               <%= link_to photo_path(photo.id) do %>
               <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
               <% end %>
             </div>
-            <!-- ログインしていたら -->
-            <% if customer_signed_in? %>
             <div class="card-body">
               <div class="row">
                 <div class="p-3">
@@ -39,6 +39,10 @@
             </div>
             <!-- ログインしていなかったら -->
             <% else %>
+            <div class="p-2">
+              <!-- 写真 -->
+              <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
+            </div>
             <div class="card-body">
               <div class="row">
                 <div class="p-3">

@@ -28,6 +28,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(Admin)
+      root_path
+    else
+      customer_path(resource)
+    end
+  end
+
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname, :image])
   end

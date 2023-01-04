@@ -11,7 +11,7 @@
       <%= f.radio_button :radio, :editing_app %>加工アプリ名
       <br>
 
-      <%= f.text_field :search_name %>
+      <%= f.text_field :search_name, class: "search_field"%>
 
       <%= f.submit '検索' %>
       <br>
@@ -30,7 +30,7 @@
 
     <%= form_with scope: :photo, url: photos_path, method: 'get' do |f| %>
 
-      <%= f.text_field :search_name %>
+      <%= f.text_field :search_name, class: "search_field" %>
 
       <%= f.submit '検索' %>
       <br><br>

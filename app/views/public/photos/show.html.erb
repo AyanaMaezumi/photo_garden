@@ -65,17 +65,19 @@
 <div>
   <p>コメント件数：<%= @photo.comments.count %></p>
   <% @photo.comments.each do |comment| %>
-  
- 
+
+  <div class="row">
+  <div class="border border-dark col-8 row pt-1 pb-1 ml-3">
     <%= image_tag comment.customer.get_image(200,200),class: "rounded-circle img-thumbnail", size: '50x50' %>
-    <%= link_to customer_path(@photo.customer.id) do %>
-    <p class="text"><%= comment.customer.nickname %></p>
+    <%= link_to customer_path(comment.customer_id) do %>
+    <p class="text col-2"><%= comment.customer.nickname %></p>
     <% end %>
     <%= comment.comment %>
     <%= comment.created_at.strftime('%Y/%m/%d') %>
-
+  </div>
+  <div class="col-3 ml-1">
     <% if current_customer.reports.find_by(comment_id: comment.id).nil? %>
-      <%= link_to "通報する", reports_path(comment_id: comment.id), method: :post, class:"btn btn-danger" %>
+      <%= link_to "通報", reports_path(comment_id: comment.id), method: :post, class:"btn btn-danger" %>
     <% else %>
       通報済み
     <% end %>
@@ -84,6 +86,8 @@
       <%= link_to "削除", photo_comment_path(comment.photo, comment), method: :delete, class:"btn btn-danger"%>
     <% end %>
   <% end %>
+  </div>
+  </div>
 </div>
 <div><br>
   <%= form_with model: [@photo,@comment] do |f| %>

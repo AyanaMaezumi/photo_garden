@@ -1,17 +1,35 @@
-<h2>お気に入り写真一覧</h2>
+<div class="container">
+  <h2>お気に入り写真一覧</h2>
+  
+  <div class="row">
 
-  <% @photos.each do |favorite_photo| %>
-
-  <%= link_to favorite_photos_path(favorite_photo.id) do %>
-    <%= image_tag favorite_photo.get_image(100,100) %>
-  <% end %><br>
-
-  <%= link_to customer_path(favorite_photo.customer.id) do %>
-    <%= favorite_photo.customer.nickname %>
-  <% end %><br>
-
-  <%= link_to "削除", photo_favorites_path(favorite_photo.id), method: :delete, class:"btn btn-danger" %><br>
-
-  <% end %>
-
+  
+      <% @photos.each do |favorite_photo| %>
+      
+      <!-- card -->
+      <div class="card mt-4 shadow-lg card-column-3" style="margin: 20px;">
+        <div class="p-2">
+          
+          <!-- 写真 -->
+          <%= link_to favorite_photos_path(favorite_photo.id) do %>
+            <%= image_tag favorite_photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
+          <% end %>
+        
+          <%= link_to customer_path(favorite_photo.customer.id) do %>
+            <%= favorite_photo.customer.nickname %>
+          <% end %>
+      
+        </div>
+         <%= link_to "削除", photo_favorites_path(favorite_photo.id), method: :delete, class:"btn btn-danger" %>
+      </div> 
+      <!-- card end -->   
+      
+    
+    
+      <% end %>
+   
+  </div>
+  
   <%= paginate @photos %>
+    
+</div>
