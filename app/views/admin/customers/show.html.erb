@@ -1,24 +1,38 @@
-<%= @customer.nickname %>さんの会員詳細<br>
+<div class="container">
 
-会員ID<%= @customer.id %><br>
+  <h2><%= @customer.nickname %>さんの会員詳細</h2<br>
+  
+  会員ID<%= @customer.id %><br>
+  
+  ニックネーム<%= @customer.nickname %><br>
+  
+  メールアドレス<%= @customer.email %><br>
+  
+  会員ステータス
+  <% if @customer.is_deleted == false %>有効
+  <% else %>退会
+  <% end %><br>
+  
+  <%= link_to "編集する", edit_admin_customer_path(@customer) ,class:"btn btn-success" %>
+  
+  <div class="row">
+    <div class="card-list-container py-5 row gap-2 col-10 mx-auto">
+  
+      <% @photos.each do |customer_photo| %>
+      
+        <!-- card -->
+        <div class="card mt-4 shadow-lg card-column-3">
+          <div class="p-2">
+            <%= image_tag customer_photo.get_image(100,100) %>
+            <%= link_to "削除", admin_photo_path(customer_photo), method: :delete, class:"btn btn-danger" %>
+          </div>
+        </div>
+        <!-- card end -->
+      <% end %>
+      
+      </div>
+  </div>
+  
+  <%= paginate @photos %>
 
-ニックネーム<%= @customer.nickname %><br>
-
-メールアドレス<%= @customer.email %><br>
-
-会員ステータス
-<% if @customer.is_deleted == false %>有効
-<% else %>退会
-<% end %><br>
-
-<%= link_to "編集する", edit_admin_customer_path(@customer) ,class:"btn btn-success" %>
-
-
-<% @photos.each do |customer_photo| %>
-
-  <%= image_tag customer_photo.get_image(100,100) %>
-  <%= link_to "削除", admin_photo_path(customer_photo), method: :delete, class:"btn btn-danger" %>
-
-<% end %>
-
-<%= paginate @photos %>
+</div>

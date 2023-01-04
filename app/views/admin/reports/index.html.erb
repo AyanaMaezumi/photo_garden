@@ -1,20 +1,23 @@
-<h2>通報コメント一覧</h2>
-
-<% @reports.each do |report| %>
-
-  <!--通報された人-->
-  <%= image_tag report.comment.customer.get_image(100,100) %>
-  <%= report.comment.customer.nickname %>
+<div class="container">
+  <h2>通報コメント一覧</h2>
   
-  <!--通報に紐づいているコメントテーブルのコメント-->
-  <%= report.comment.comment %>
+  <% @reports.each do |report| %>
   
-  <!--通報-->
-  <%= report.customer.nickname %>
-
-  <%= link_to "削除", admin_report_path(report.id), method: :delete,class:"btn btn-danger" %>
+    <!--通報された人-->
+    <%= image_tag report.comment.customer.get_image(100,100) %>
+    <%= report.comment.customer.nickname %>
+    
+    <!--通報に紐づいているコメントテーブルのコメント-->
+    <%= report.comment.comment %>
+    
+    <!--通報-->
+    <%= report.customer.nickname %>
   
-<% end %>
-
-
-<%= paginate @reports %>
+    <%= link_to "削除", admin_report_path(report.id), method: :delete,class:"btn btn-danger" %>
+    
+  <% end %>
+  
+  
+  <%= paginate @reports %>
+  
+</div>
