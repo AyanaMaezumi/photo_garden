@@ -1,7 +1,16 @@
 <div class="container">
-
-  <h2>フォロワー一覧</h2><br>
+  <h2 class="mb-4">フォロワー一覧</h2>
   
-  <%= render 'customers', customers: @followers %><br>
-
+  <div class="row">
+    <div class="offset-sm-3 col-sm-6">
+      <% @followers.each do |customer| %>
+        <div class="py-2 d-flex justify-content-between">
+          <span>
+            <%= image_tag customer.get_image(200,200),class: "rounded-circle img-thumbnail", size: '50x50' %>
+            <%= link_to customer.nickname, customer %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

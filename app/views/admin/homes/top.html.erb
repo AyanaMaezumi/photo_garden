@@ -1,29 +1,39 @@
 <div class="container">
 
-  <h2>写真一覧（全<%= @photos.count %>枚）</h2>
-
   <div class="row">
-    <div class="card-list-container py-5 row gap-2 col-10 mx-auto">
-
-      <% @photos.each do |photos| %>
-    
-        <!-- card -->
-        <div class="card mt-4 shadow-lg card-column-3">
-          <div class="p-2">
-            <%= link_to admin_photo_path(photos.id) do %>
-              <%= image_tag photos.get_image(100,100) %>
-            <% end %><br>
-            <%= link_to admin_customer_path(photos.id) do %>
-              <%= photos.customer.nickname %><br>
-            <% end %>
-          </div>
-        </div>
-        <!-- card end -->
-      <% end %>
-      
-    </div>
+      <div class="col-12">
+        <h2>写真一覧</h2>
+      </div>
   </div>
 
-  <%= paginate @photos %>
+  <div class="row">
+    <% @photos.each do |photo| %>
+      <!-- card -->
+      <div class="col-md-4 col-sm-6 my-2">
+        <div class="card">
+          <div class="p-2">
+            <!-- 写真 -->
+            <%= link_to admin_photo_path(photo) do %>
+              <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
+            <% end %>
+          </div>
+          <div class="card-body">
+            <span class="mr-3">
+              <%= image_tag photo.customer.get_image(200,200), class: "rounded-circle img-thumbnail", size: '70x70' %>
+            </span>
+            <span>
+              <%= link_to admin_customer_path(photo.customer.id) do %>
+              <span class="photo-nickname"><i class="fas fa-user"></i> By <%= photo.customer.nickname %></span>
+              <% end %><br>
+            </span>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
+  </div>
+    <!-- card end -->
+
+
+  <%= paginate @photos %>
 </div>

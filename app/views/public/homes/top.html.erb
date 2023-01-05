@@ -1,55 +1,49 @@
 <div class="container">
   <div class="top-img p-5">
 
-    ようこそ、フォト活の庭へ
-    ここは、初心者～プロの方まで、写真が好きな人が集まり、情報交換ができるネット上のお庭。
-    投稿やコメントをするには、会員登録が必要です。
+    <p class="font-weight-bold">ようこそ、フォト活の庭へ<br>
+    ここは、初心者～プロの方まで、写真が好きな人が集まり、情報交換ができるネット上のお庭。<br>
+    投稿やコメントをするには、会員登録が必要です。</p>
+
   </div>
 
   <div class="row">
-  <div class="card-list-container py-5 row gap-2 col-10 mx-auto">
-
     <% @photos.each do |photo| %>
     <!-- card -->
-    <div class="card mt-4 shadow-lg card-column-3">
-      <div class="p-2">
-        <%= link_to photo_path(photo.id) do %>
-        <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
-        <% end %>
-      </div>
-      <!-- ログインしていたら -->
-      <% if customer_signed_in? %>
-      <div class="card-body">
-        <div class="row">
-          <div class="p-3">
-            <%= image_tag photo.customer.get_image(200,200), class: "rounded-circle img-thumbnail", size: '70x70' %>
-          </div>
-          <div class="py-3">
-            <%= link_to customer_path(photo.customer.id) do %>
-            <span class="photo-nickname"><i class="fas fa-user"></i> By <%= photo.customer.nickname %></span>
+      <div class="col-md-4 col-sm-6 my-2">
+        <div class="card">
+          <div class="p-2">
+            <%= link_to photo_path(photo.id) do %>
+              <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
             <% end %>
           </div>
+          <!-- ログインしていたら -->
+          <% if customer_signed_in? %>
+            <div class="card-body">
+              <span class="mr-3">
+                <%= image_tag photo.customer.get_image(200,200), class: "rounded-circle img-thumbnail", size: '70x70' %>
+              </span>
+              <span>
+                <%= link_to customer_path(photo.customer.id) do %>
+                <span class="photo-nickname"><i class="fas fa-user"></i> By <%= photo.customer.nickname %></span>
+                <% end %>
+              </span>
+            </div>
+          <!-- ログインしていなかったら -->
+          <% else %>
+            <div class="card-body">
+              <span class="mr-3">
+                <%= image_tag photo.customer.get_image(200,200), class: "rounded-circle img-thumbnail", size: '70x70' %>
+              </span>
+              <span>
+                <span class="photo-nickname"><i class="fas fa-user"></i> By <%= photo.customer.nickname %></span>
+              </span>
+            </div>
+          <% end %>
         </div>
       </div>
-      <!-- ログインしていなかったら -->
-      <% else %>
-      <div class="card-body">
-        <div class="row">
-          <div class="p-3">
-            <%= image_tag photo.customer.get_image(200,200), class: "rounded-circle img-thumbnail", size: '70x70' %>
-          </div>
-          <div class="py-3">
-            <span class="photo-nickname"><i class="fas fa-user"></i> By <%= photo.customer.nickname %></span>
-          </div>
-        </div>
-      </div>
-      <% end %>
-
-    </div>
     <!-- card end -->
     <% end %>
-
-  </div>
   </div>
 
   <div class="text-center">
@@ -57,6 +51,5 @@
 
     <%= paginate @photos %>
   </div>
-
 </div>
 

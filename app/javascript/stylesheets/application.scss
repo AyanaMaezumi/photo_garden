@@ -1,6 +1,14 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
+.top-img {
+  background-image: url('../images/photo_garden_top.jpg');
+}
+
+.back-img {
+  background-image: url('../images/background.png');
+}
+
 .img-thumbnail {
   object-fit: cover;
   aspect-ratio: 1/1;
@@ -52,4 +60,20 @@
 
 .search_field {
   width: 100% ;
+}
+
+.photos_table th {
+    min-width: 65px;
+}
+
+.photos_table th a {
+  word-break: break-word;
+}
+
+.photos_table td a {
+  min-width: 60px;
+}
+
+.report_table_buttons {
+  min-width: 90px;
 }

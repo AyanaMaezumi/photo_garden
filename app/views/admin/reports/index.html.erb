@@ -1,23 +1,51 @@
 <div class="container">
   <h2>通報コメント一覧</h2>
-  
-  <% @reports.each do |report| %>
-  
-    <!--通報された人-->
-    <%= image_tag report.comment.customer.get_image(100,100) %>
-    <%= report.comment.customer.nickname %>
-    
-    <!--通報に紐づいているコメントテーブルのコメント-->
-    <%= report.comment.comment %>
-    
-    <!--通報-->
-    <%= report.customer.nickname %>
-  
-    <%= link_to "削除", admin_report_path(report.id), method: :delete,class:"btn btn-danger" %>
-    
-  <% end %>
-  
-  
+
+
+  <table class="table table-striped">
+
+      <thead class="table-light">
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">通報コメント</th>
+          <th scope="col" class="report_table_buttons">通報者</th>
+          <th scope="col" class="report_table_buttons"></th>
+        </tr>
+      </thead>
+
+      <% @reports.each do |report| %>
+
+      <tbody>
+        <tr>
+          <th scope="row">
+            <!--通報された人-->
+            <%= link_to admin_customer_path(report.comment.customer) do %>
+              <%= image_tag report.comment.customer.get_image(100,100),class: "rounded-circle img-thumbnail", size: '50x50' %>
+              <%= report.comment.customer.nickname %>
+            <% end %>
+          </th>
+
+          <td><!--通報に紐づいているコメントテーブルのコメント-->
+            <%= report.comment.comment %>
+          </td>
+
+          <td><!--通報者-->
+            <%= link_to admin_customer_path(report.customer) do %>
+              <%= report.customer.nickname %>
+            <% end %>
+          </td>
+
+          <td>
+            <%= link_to "削除", admin_report_path(report.id), method: :delete,class:"btn btn-danger" %>
+          </td>
+        </tr>
+      </tbody>
+
+      <% end %>
+
+  </table>
+
+
   <%= paginate @reports %>
-  
+
 </div>

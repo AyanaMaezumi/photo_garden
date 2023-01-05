@@ -1,17 +1,19 @@
 <div class="container">
 
   <h2><%= @customer.nickname %>さんの会員詳細</h2><br>
+  
+  <%= image_tag @customer.get_image(400,400) %><br><br>
 
-  会員ID<%= @customer.id %><br>
+  会員ID ：<%= @customer.id %><br><br>
 
-  ニックネーム<%= @customer.nickname %><br>
+  ニックネーム ：<%= @customer.nickname %><br><br>
 
-  メールアドレス<%= @customer.email %><br>
+  メールアドレス ：<%= @customer.email %><br><br>
 
-  会員ステータス
+  会員ステータス ：
   <% if @customer.is_deleted == false %>有効
   <% else %>退会
-  <% end %><br>
+  <% end %><br><br>
 
   <%= link_to "編集する", edit_admin_customer_path(@customer) ,class:"btn btn-success" %>
 
@@ -23,9 +25,11 @@
         <!-- card -->
         <div class="card mt-4 shadow-lg card-column-3">
           <div class="p-2">
-            <%= image_tag customer_photo.get_image(100,100) %>
-            <%= link_to "削除", admin_photo_path(customer_photo), method: :delete, class:"btn btn-danger" %>
+            <%= link_to admin_photo_path(customer_photo.id) do %>
+              <%= image_tag customer_photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
+            <% end %>
           </div>
+          <%= link_to "削除", admin_photo_path(customer_photo), method: :delete, class:"btn btn-danger" %>
         </div>
         <!-- card end -->
       <% end %>

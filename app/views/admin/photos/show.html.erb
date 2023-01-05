@@ -1,33 +1,31 @@
 <div class="container">
-
-  <%= image_tag @photo.get_image(400,400) %><br>
+  <div>
+    <%= image_tag @photo.get_image(400,400) %>
+  </div>
   
-  <h5>撮影者</h5>
+  <h5 class="mt-4">撮影者</h5>
   <div class="flex">
-  <%= image_tag @photo.customer.get_image(200,200),class: "rounded-circle img-thumbnail", size: '70x70' %>
-  <br>
-  <%= link_to customer_path(@photo.customer.id) do %>
-  <p class="text"><%= @photo.customer.nickname %></p>
-  </div><br>
+    <%= image_tag @photo.customer.get_image(200,200),class: "rounded-circle img-thumbnail", size: '70x70' %>
+  
+    <%= link_to admin_customer_path(@photo.customer.id) do %>
+      <p class="text"><%= @photo.customer.nickname %></p>
+    <% end %>
+  </div>
+  
+  <h5 class="mt-4">使用カメラ</h5>
+  <% @camera_tags.each do |camera_tag| %>
+    <h5><%=camera_tag.name%></h5>
   <% end %>
   
-  <br><br><br>
+  <h5 class="mt-4">使用加工アプリ</h5>
+  <div class="tag_box">
+    <% @editing_app_tags.each do |app_tag| %>
+      <%=app_tag.name%>
+    <% end %>
+  </div>
   
-  <h5>使用カメラ</h5>
-    <% @camera_tags.each do |camera_tag| %>
-    <h5><%=camera_tag.name%></h5>
-    <% end %><br>
-  
-  <h5>使用加工アプリ</h5>
-    <div class="tag_box"><% @editing_app_tags.each do |app_tag| %>
-    <%=app_tag.name%>
-    <% end %></div><br>
-  
-  <h5>撮影者コメント</h5>
+  <h5 class="mt-4">撮影者コメント</h5>
   <%= @photo.introduction %><br><br>
   
   <%= link_to "投稿削除", photo_path(@photo), method: :delete, class:"btn btn-danger" %>
-  <% end %><br><br>
-
-
 </div>

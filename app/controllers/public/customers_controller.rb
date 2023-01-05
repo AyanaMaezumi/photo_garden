@@ -4,7 +4,7 @@ class Public::CustomersController < ApplicationController
     # customerテーブルを参照して一致するIDのcustomerを取得する
     @customer = Customer.find(params[:id])
     # customerテーブルを参照して一致するIDのcustomerを取得する それの紐づく画像情報を取得
-    @photos = @customer.photos.page(params[:page]).per(10)
+    @photos = @customer.photos.page(params[:page]).per(4)
     # customerテーブルを参照して一致するIDのcustomerを取得する それの紐づくいいね情報を取得
     @favorite_photos = @customer.likes
   end

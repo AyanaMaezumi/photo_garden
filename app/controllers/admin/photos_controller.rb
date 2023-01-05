@@ -1,4 +1,12 @@
 class Admin::PhotosController < ApplicationController
+  
+  def show
+    @photo = Photo.find(params[:id])
+    @name_tags = @photo.tags
+    @camera_tags = @photo.cameras
+    @editing_app_tags = @photo.editing_apps
+  end
+
 
   def destroy
     @photo = Photo.find(params[:id])
