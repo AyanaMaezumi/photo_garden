@@ -1,22 +1,28 @@
 <div class="container">
   
-  <h2>会員情報編集</h2><br>
+  <h2>会員情報編集</h2>
   
-    会員ID ：<%= @customer.id %><br><br>
+    <div class="mt-4">
+      会員ID ：<%= @customer.id %>
+    </div>
   
-    氏名 ：<%= @customer.nickname %><br><br>
+    <div class="mt-4">
+      氏名 ：<%= @customer.nickname %>
+    </div>
   
-    メールアドレス ：<%= @customer.email %><br><br>
+    <div class="mt-4">
+      メールアドレス ：<%= @customer.email %>
+    </div>
   
   
     <%= form_with model: @customer, url:admin_customer_path(@customer) do |f| %>
   
-    <div class="field">
+    <div class="field mt-4">
       <%= f.label :is_deleted, "会員ステータス"%>
       <%= f.radio_button :is_deleted, false %>有効 <%= f.radio_button :is_deleted, true %>退会
-    </div><br>
+    </div>
     
-    <div class="actions">
+    <div class="actions mt-4">
       <%= f.submit "変更を保存",class:"btn btn-success" %>
     </div>
   

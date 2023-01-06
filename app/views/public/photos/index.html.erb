@@ -7,66 +7,65 @@
       </div>
 
       <div class="col-9">
-      <h2>写真一覧（検索結果（全<%= @photos.count %>件））</h2>
+        <h2>写真一覧（検索結果（全<%= @photos.count %>件））</h2>
+      </div>
     <% else %>
       <h2>写真一覧</h2>
     <% end %>
+  
 
       <div class="row">
-      <div class="card-list-container py-5 row gap-2 col-10 mx-auto">
         <% @photos.each do |photo| %>
           <!-- card -->
-          <div class="card mt-4 shadow-lg card-column-3">
             <!-- ログインしていたら -->
             <% if customer_signed_in? %>
-            <div class="p-2">
-              <!-- 写真 -->
-              <%= link_to photo_path(photo.id) do %>
-              <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
-              <% end %>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="p-3">
-                  <%= image_tag photo.customer.get_image(200,200), class: "rounded-circle img-thumbnail", size: '70x70' %>
+            <div class="col-md-4 col-sm-6 my-2">
+              <div class="card">
+                <div class="p-2">
+                  <!-- 写真 -->
+                  <%= link_to photo_path(photo.id) do %>
+                  <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
+                  <% end %>
                 </div>
-                <div class="py-3">
-                  <%= link_to customer_path(photo.customer.id) do %>
-                  <span class="photo-nickname"><i class="fas fa-user"></i> By <%= photo.customer.nickname %></span>
-                  <% end %><br>
-                </div>
+                <div class="card-body">
+                  <sapan class="p-3">
+                    <%= image_tag photo.customer.get_image(200,200), class: "rounded-circle img-thumbnail", size: '70x70' %>
+                  </sapan>
+                  <sapan>
+                    <%= link_to customer_path(photo.customer.id) do %>
+                    <span class="photo-nickname"><i class="fas fa-user"></i> By <%= photo.customer.nickname %></span>
+                    <% end %><br>
+                  </sapan>
+                </div> 
               </div>
             </div>
             <!-- ログインしていなかったら -->
             <% else %>
-            <div class="p-2">
-              <!-- 写真 -->
-              <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="p-3">
-                  <%= image_tag photo.customer.get_image(200,200), class: "rounded-circle img-thumbnail", size: '70x70' %>
+            <div class="col-md-4 col-sm-6 my-2">
+              <div class="card">
+                <div class="p-2">
+                <!-- 写真 -->
+                <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
                 </div>
-                <div class="py-3">
-                  <span class="photo-nickname"><i class="fas fa-user"></i> By <%= photo.customer.nickname %></span>
+                <div class="card-body">
+                  <sapan class="mr-3">
+                    <%= image_tag photo.customer.get_image(200,200), class: "rounded-circle img-thumbnail", size: '70x70' %>
+                  </sapan>
+                  <span>
+                    <span class="photo-nickname"><i class="fas fa-user"></i> By <%= photo.customer.nickname %></span>
+                  </sapan>
                 </div>
               </div>
             </div>
             <% end %>
-          </div>
+          
         <% end %>
 
       </div>
-      </div>
-    </div>
     <!-- card end -->
 
+  </div>
 
     <%= paginate @photos %>
-
-    </div>
-
-  </div>
 
 </div>
