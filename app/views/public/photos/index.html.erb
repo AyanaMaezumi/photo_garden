@@ -1,25 +1,17 @@
 <div class="container">
-
   <div class="row">
     <% if customer_signed_in? %>
-      <div class="col-3">
+    
+      <div class="col-sm-3">
         <%= render 'list' %>
       </div>
 
-      <div class="col-9">
+      <div class="col-sm-9">
         <h2>写真一覧（検索結果（全<%= @photos.count %>件））</h2>
-      </div>
-    <% else %>
-      <h2>写真一覧</h2>
-    <% end %>
-  
-
-      <div class="row">
-        <% @photos.each do |photo| %>
-          <!-- card -->
-            <!-- ログインしていたら -->
-            <% if customer_signed_in? %>
-            <div class="col-md-4 col-sm-6 my-2">
+        
+        <div class="row">
+          <% @photos.each do |photo| %>
+            <div class="col-lg-4 col-md-6 col-sm-12 my-2">
               <div class="card">
                 <div class="p-2">
                   <!-- 写真 -->
@@ -39,8 +31,16 @@
                 </div> 
               </div>
             </div>
-            <!-- ログインしていなかったら -->
-            <% else %>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+  
+      <div class="col-12">
+        <h2>写真一覧</h2>
+
+        <div class="row">
+          <% @photos.each do |photo| %>
             <div class="col-md-4 col-sm-6 my-2">
               <div class="card">
                 <div class="p-2">
@@ -57,15 +57,11 @@
                 </div>
               </div>
             </div>
-            <% end %>
-          
-        <% end %>
-
+          <% end %>
+        </div>
       </div>
-    <!-- card end -->
-
+    <% end %>
   </div>
-
-    <%= paginate @photos %>
-
+  
+  <%= paginate @photos %>
 </div>

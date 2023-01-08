@@ -1,31 +1,37 @@
-<div class="col-3">
-  <%= render 'list' %>
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <%= render 'list' %>
+    </div>
+    
+    <!--タグリスト-->
+    <div class="col-9">
+      <% @tag_list.each do |tag_list|%>
+        <% if tag_list.photos.count == 0 %>
+        <% else %>
+          <%= link_to(photos_path(type: 'tag', id: tag_list.id), class: "badge badge-pill badge-info") do %>
+              <%=tag_list.name %>
+              <span class="badge badge-light"><%= tag_list.photos.count %></span>
+          <% end %>
+        <% end %>
+      <% end %>
+      
+      <% @camera_list.each do |camera_list|%>
+        <% if camera_list.photos.count == 0 %>
+        <% else %>
+          <%= link_to(photos_path(type: 'camera', id: camera_list.id ), class: "badge badge-pill badge-success") do %>
+            <%=camera_list.name %>
+            <span class="badge badge-light"><%= camera_list.photos.count %></span>
+          <% end %>
+        <% end %>
+      <% end %>
+      
+      <% @editing_app_list.each do |app_list|%>
+        <%= link_to(photos_path(type: 'editing', id: app_list.id ), class: "badge badge-pill badge-primary") do %>
+          <%=app_list.name %>
+          <span class="badge badge-light"><%= app_list.photos.count %></span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<!--タグリスト-->
-<% @tag_list.each do |tag_list|%>
-  <% if tag_list.photos.count == 0 %>
-  <% else %>
-    <%= link_to(photos_path(type: 'tag', id: tag_list.id )) do %>
-      <%=tag_list.name %>
-      <%="(#{tag_list.photos.count})" %>
-    <% end %>
-  <% end %>
-<% end %>
-
-<% @camera_list.each do |camera_list|%>
-  <% if camera_list.photos.count == 0 %>
-  <% else %>
-    <%= link_to(photos_path(type: 'camera', id: camera_list.id )) do %>
-      <%=camera_list.name %>
-      <%="(#{camera_list.photos.count})" %>
-    <% end %>
-  <% end %>
-<% end %>
-
-<% @editing_app_list.each do |app_list|%>
-  <%= link_to(photos_path(type: 'editing', id: app_list.id )) do %>
-    <%=app_list.name %>
-    <%="(#{app_list.photos.count})" %>
-  <% end %>
-<% end %>
