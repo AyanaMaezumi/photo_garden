@@ -65,12 +65,14 @@ class Photo < ApplicationRecord
 
     # 古いタグを消す
     old_tags.each do |old|
+      pp Camera.find_by(name: old)
       self.cameras.delete Camera.find_by(name: old)
     end
 
     # 新しいタグを保存
     new_tags.each do |new|
       new_post_tag = Camera.find_or_create_by(name: new)
+      pp new_post_tag
       self.cameras << new_post_tag
     end
   end

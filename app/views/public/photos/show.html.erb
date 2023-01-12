@@ -1,6 +1,6 @@
 <div class="container">
 
-  <%= image_tag @photo.get_image(400,400) %><br>
+  <%= image_tag @photo.get_image(400,400), class: "img-fluid" %><br>
   
   <%# a != b ＝aとbの中身が異なる ==の反対%>
   <%# @photoの投稿者とログインしているcustomerが異なっていればいいね出来る %>

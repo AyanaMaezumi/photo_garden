@@ -6,7 +6,7 @@
     <h2>会員情報</h2>
   <% end %>
   
-  <%= image_tag @customer.get_image(400,400) %><br><br>
+  <%= image_tag @customer.get_image(400,400), class: "img-fluid" %><br><br>
   
   <h6>ニックネーム</h6>
   <h5><%= @customer.nickname %></h5><br>
@@ -28,19 +28,20 @@
   <br>
   
   <div class="row">
-  <div class="card-list-container py-5 row gap-2 col-10 mx-auto">
-  <% @photos.each do |customer_photo| %>
-  
-    <div class="card mt-4 shadow-lg card-3">
-      <div class="p-2">
-        <%= link_to photo_path(customer_photo.id) do %>
-         <%= image_tag customer_photo.image.variant(gravity: :center, resize:"200x200^",crop:"200x200+0+0").processed%>
-        <% end %>
-      </div>
+    <div class="card-list-container py-5 row gap-2 col-sm-12 mx-auto justify-content-center">
+      <% @photos.each do |customer_photo| %>
+        <div class="card mt-4 shadow-lg card-3">
+          <div class="p-2">
+            <%= link_to photo_path(customer_photo.id) do %>
+             <%= image_tag customer_photo.image.variant(gravity: :center, resize:"200x200^",crop:"200x200+0+0").processed%>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
-  
-  <% end %>
-  
-  <%= paginate @photos %>
+  </div>
+  <div class="text-center">
+    <%= paginate @photos %>
+  </div>
 
 </div>
