@@ -17,7 +17,9 @@
   
     <div class="field mt-4">
       <h4>使用加工アプリ</h4>
-      <%= f.text_field :editing_app_tags, value: @photo.editing_apps.pluck(:name) %>
+      <%= f.text_field :editing_app_tags, value: @photo.editing_apps.pluck(:name) %><br>
+      ※複数の加工アプリが登録できます。<br>
+      複数登録する場合は、文字と文字の間を『 , 』(半角カンマ)で区切ってください。<br>
     </div>
     
     <div class="field mt-4">
@@ -27,7 +29,9 @@
   
     <div class="field mt-4">
       <h4>タグ</h4>
-      <%= f.text_field :name_tags, value: @photo.tags.pluck(:name).join(',') %>
+      <%= f.text_field :name_tags, value: @photo.tags.pluck(:name).join(',') %><br>
+      ※複数のタグが登録できます。<br>
+      複数登録する場合は、文字と文字の間を『 , 』(半角カンマ)で区切ってください。<br>
     </div>
   
     <div class="field mt-5">
