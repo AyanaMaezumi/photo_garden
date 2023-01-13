@@ -4,23 +4,35 @@
   
   <%= form_with model: @photo, url: photo_path do |f| %>
   
-    <h4>写真</h4>
-    <%= image_tag f.object.image, width: '200' %>
+    <div class="field mt-4">
+      <h4>写真</h4>
+      <%= image_tag f.object.image, width: '200' %>
+    </div>
   
-    <h4>使用カメラ</h4>
-    <!--既に保存済みのデータを表示する。pluckは、呼び出したいデータを絞る（複数持ってくることも可）。-->
-    <%= f.text_field :camera_tags, value: @photo.cameras.pluck(:name) %>
+    <div class="field mt-4">
+      <h4>使用カメラ</h4>
+      <!--既に保存済みのデータを表示する。pluckは、呼び出したいデータを絞る（複数持ってくることも可）。-->
+      <%= f.text_field :camera_tags, value: @photo.cameras.pluck(:name) %>
+    </div>
   
-    <h4>使用加工アプリ</h4>
-    <%= f.text_field :editing_app_tags, value: @photo.editing_apps.pluck(:name) %>
+    <div class="field mt-4">
+      <h4>使用加工アプリ</h4>
+      <%= f.text_field :editing_app_tags, value: @photo.editing_apps.pluck(:name) %>
+    </div>
+    
+    <div class="field mt-4">
+      <h4>投稿者コメント</h4>
+      <%= f.text_area :introduction %>
+    </div>
   
-    <h4>投稿者コメント</h4>
-    <%= f.text_area :introduction %>
+    <div class="field mt-4">
+      <h4>タグ</h4>
+      <%= f.text_field :name_tags, value: @photo.tags.pluck(:name).join(',') %>
+    </div>
   
-    <h4>タグ</h4>
-    <%= f.text_field :name_tags, value: @photo.tags.pluck(:name).join(',') %>
-  
-    <%= f.submit '変更を保存', class:"btn btn-success" %>
+    <div class="field mt-5">
+      <%= f.submit '変更を保存', class:"btn btn-success" %>
+    </div>
   
   <% end %>
   
