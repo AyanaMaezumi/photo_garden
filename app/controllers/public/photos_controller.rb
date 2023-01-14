@@ -7,26 +7,27 @@ class Public::PhotosController < ApplicationController
         #photoに紐づくcamerasの情報を使えるようにする（joins）。
         #camerasのnameが指定した文字列(photo_params[:search_name])と一致するものを引っ張り出す。
         #"cameras.name LIKE ?"どこの列から検索するか指定している。"%#{photo_params[:search_name]}%"実際の検索するキーワードを入れてる。
-        @photos = Photo.joins(:cameras).where("cameras.name LIKE ?", "%#{photo_params[:search_name]}%").page(params[:page]).per(12)
+        #.left_joins(:customer).where('customers.is_deleted = ?', false)で退会者の写真は表示させない。
+        @photos = Photo.joins(:cameras).where("cameras.name LIKE ?", "%#{photo_params[:search_name]}%").left_joins(:customer).where('customers.is_deleted = ?', false).page(params[:page]).per(12)
       elsif params[:photo][:radio] == 'editing_app'
         #editing_app
-        @photos = Photo.joins(:editing_apps).where("editing_apps.name LIKE ?", "%#{photo_params[:search_name]}%").page(params[:page]).per(12)
+        @photos = Photo.joins(:editing_apps).where("editing_apps.name LIKE ?", "%#{photo_params[:search_name]}%").left_joins(:customer).where('customers.is_deleted = ?', false).page(params[:page]).per(12)
       else
-        @photos = Photo.joins(:tags).where("tags.name LIKE ?", "%#{photo_params[:search_name]}%").distinct.page(params[:page]).per(12)
+        @photos = Photo.joins(:tags).where("tags.name LIKE ?", "%#{photo_params[:search_name]}%").distinct.left_joins(:customer).where('customers.is_deleted = ?', false).page(params[:page]).per(12)
       end
     else
     #検索をかけていないときの挙動（初期表示）
       if params[:type] == 'editing'
         photo_ids = PhotoEditingApp.where(editing_app_id: params[:id]).pluck(:photo_id)
-        @photos = Photo.where(id: photo_ids).page(params[:page]).per(12)
+        @photos = Photo.where(id: photo_ids).left_joins(:customer).where('customers.is_deleted = ?', false).page(params[:page]).per(12)
       elsif params[:type] == 'camera'
         photo_ids = PhotoCamera.where(camera_id: params[:id]).pluck(:photo_id)
-        @photos = Photo.where(id: photo_ids).page(params[:page]).per(12)
+        @photos = Photo.where(id: photo_ids).left_joins(:customer).where('customers.is_deleted = ?', false).page(params[:page]).per(12)
       elsif params[:type] == 'tag'
         photo_ids = PhotoTag.where(tag_id: params[:id]).pluck(:photo_id)
-        @photos = Photo.where(id: photo_ids).page(params[:page]).per(12)
+        @photos = Photo.where(id: photo_ids).left_joins(:customer).where('customers.is_deleted = ?', false).page(params[:page]).per(12)
       else
-        @photos = Photo.all.page(params[:page]).per(12)
+        @photos = Photo.all.left_joins(:customer).where('customers.is_deleted = ?', false).page(params[:page]).per(12)
       end
 
     end
@@ -55,6 +56,8 @@ class Public::PhotosController < ApplicationController
 
   def show
     @photo = Photo.find(params[:id])
+    # commentテーブルとcustomerテーブルをleft_joinsを使用し一つのテーブルにまとめました。その中から、customersテーブルのis_deletedカラムがfalseのデータを取得しています。-->
+    @photo_comments = @photo.comments.left_joins(:customer).where('customers.is_deleted = ?', false)
     @name_tags = @photo.tags
     @camera_tags = @photo.cameras
     @editing_app_tags = @photo.editing_apps

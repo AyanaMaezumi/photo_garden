@@ -19,7 +19,7 @@
     <% end %>
 
     <hr class="hr1">
-
+    <!--type:に'camera'というパラメーターを渡している。その後は、photo_controllerのtype_searchアクションに飛ぶ-->
     <%= link_to 'カメラ名一覧', photo_type_search_path(type: 'camera') %>
     <br>
     <%= link_to '加工アプリ名一覧', photo_type_search_path(type: 'editing') %>

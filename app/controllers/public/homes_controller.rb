@@ -2,7 +2,7 @@ class Public::HomesController < ApplicationController
   before_action :correct_user
 
   def top
-    @photos = Photo.page(params[:page]).per(6)
+    @photos = Photo.left_joins(:customer).where('customers.is_deleted = ?', false).page(params[:page]).per(6)
   end
   
   private

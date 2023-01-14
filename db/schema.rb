@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2022_12_22_102915) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
-
+  
   create_table "photo_cameras", force: :cascade do |t|
     t.integer "photo_id"
     t.integer "camera_id"

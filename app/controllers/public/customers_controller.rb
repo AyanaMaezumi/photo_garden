@@ -22,13 +22,13 @@ class Public::CustomersController < ApplicationController
   #フォロー一覧
   def followings
     customer = Customer.find(params[:id])
-    @followings = customer.followings
+    @followings = customer.followings.where(is_deleted: false)
   end
 
   #フォロワー一覧
   def followers
     customer = Customer.find(params[:id])
-    @followers = customer.followers
+    @followers = customer.followers.where(is_deleted: false)
   end
 
   def unsubscribe
