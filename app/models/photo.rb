@@ -35,23 +35,15 @@ class Photo < ApplicationRecord
 
 
   #全ての中間タグを通して、タグを登録できるようにする
-  def save_photo_tag(sent_tags)
-  # タグが存在していれば、タグの名前を配列として全て取得
-    current_tags = self.tags.pluck(:name) unless self.tags.nil?
-    # 現在取得したタグから送られてきたタグを除いてoldtagとする
-    old_tags = current_tags - sent_tags
-    # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
-    new_tags = sent_tags - current_tags
-
-    # 古いタグを消す
-    old_tags.each do |old|
-      self.tags.delete Tag.find_by(name: old)
-    end
-
-    # 新しいタグを保存
-    new_tags.each do |new|
-      new_post_tag = Tag.find_or_create_by(name: new)
-      self.tags << new_post_tag
+  def save_photo_tag(tag_names)
+    #中間テーブル一旦リセットする。既存の中間テーブルすべて消す（updateの時に使う）
+    self.photo_tags.destroy_all
+    tag_names.each do |name|
+      # find_or_create_by 新規である、又は、既存である加工アプリ名を検索。新規だった場合は、そのnameで加工アプリレコードを一件作成する。をeachで繰り返す。
+      tag = Tag.find_or_create_by(name: name)
+      # 新規の中間テーブルを作成する（createとupdateの時に使う）。一番後ろのtagは、43行目のtagのこと。(tag_id: tag.id) photo_id: self.id
+      # PhotoTag.create(tag_id: tag.id, photo_id: self.id)
+      self.photo_tags.create(tag: tag)
     end
   end
 
@@ -66,23 +58,14 @@ class Photo < ApplicationRecord
   
   end
 
-  def save_editing_app_tag(sent_tags)
-  # タグが存在していれば、タグの名前を配列として全て取得
-    current_tags = self.editing_apps.pluck(:name) unless self.editing_apps.nil?
-    # 現在取得したタグから送られてきたタグを除いてoldtagとする
-    old_tags = current_tags - sent_tags
-    # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
-    new_tags = sent_tags - current_tags
-
-    # 古いタグを消す
-    old_tags.each do |old|
-      self.editing_apps.delete EditingApp.find_by(name: old)
-    end
-
-    # 新しいタグを保存
-    new_tags.each do |new|
-      new_post_tag = EditingApp.find_or_create_by(name: new)
-      self.editing_apps << new_post_tag
+  def save_editing_app_tag(editing_app_names)
+    #中間テーブル一旦リセットする。既存の中間テーブルすべて消す（updateの時に使う）
+    self.photo_editing_apps.destroy_all
+    editing_app_names.each do |name|
+      # find_or_create_by 新規である、又は、既存である加工アプリ名を検索。新規だった場合は、そのnameで加工アプリレコードを一件作成する。をeachで繰り返す。
+      editing_app = EditingApp.find_or_create_by(name: name)
+      # 新規の中間テーブルを作成する（createとupdateの時に使う）。一番後ろのediting_appは、74行目のediting_appのこと。
+      self.photo_editing_apps.create(editing_app: editing_app)
     end
   end
 

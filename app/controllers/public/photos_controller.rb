@@ -69,14 +69,14 @@ class Public::PhotosController < ApplicationController
     @photo = Photo.new(photo_params)
     @photo.customer_id=current_customer.id
     # 受け取った値を,で区切って配列にする
-    tag_list=params[:photo][:name_tags].split(',')
+    tag_names=params[:photo][:tag_names].split(',')
     camera_name=params[:photo][:camera_name]
     #camera = @photo.cameras.new(name: params[:photo][:camera_tags])
-    editing_app_list=params[:photo][:editing_app_tags].split(',')
+    editing_app_names=params[:photo][:editing_app_names].split(',')
     if @photo.save
-      @photo.save_photo_tag(tag_list)
+      @photo.save_photo_tag(tag_names)
       @photo.save_camera_tag(camera_name)
-      @photo.save_editing_app_tag(editing_app_list)
+      @photo.save_editing_app_tag(editing_app_names)
       redirect_to photo_path(@photo.id),notice:'投稿に成功しました'
     else
       render:new,notice:'投稿に失敗しました'
@@ -92,9 +92,9 @@ class Public::PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     #入力されたタグを受け取る
-    tag_list=params[:photo][:name_tags].split(',')
+    tag_names=params[:photo][:tag_names].split(',')
     camera_name=params[:photo][:camera_name]
-    editing_app_list=params[:photo][:editing_app_tags].split(',')
+    editing_app_names=params[:photo][:editing_app_names].split(',')
     #もしphotoの情報が更新されたら
     if @photo.update(photo_params)
       #if params[:photo][:status]== "公開"
@@ -104,9 +104,9 @@ class Public::PhotosController < ApplicationController
         @old_relations.each do |relation|
         relation.delete
         end
-         @photo.save_photo_tag(tag_list)
+         @photo.save_photo_tag(tag_names)
          @photo.save_camera_tag(camera_name)
-         @photo.save_editing_app_tag(editing_app_list)
+         @photo.save_editing_app_tag(editing_app_names)
         redirect_to photo_path(@photo.id), notice: '更新完了しました'
       #else redirect_to photo_path, notice: '下書きに登録しました。'
       #end
