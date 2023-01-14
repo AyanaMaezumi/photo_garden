@@ -55,26 +55,15 @@ class Photo < ApplicationRecord
     end
   end
 
-  def save_camera_tag(sent_tags)
-  # タグが存在していれば、タグの名前を配列として全て取得
-    current_tags = self.cameras.pluck(:name) unless self.cameras.nil?
-    # 現在取得したタグから送られてきたタグを除いてoldtagとする
-    old_tags = current_tags - sent_tags
-    # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
-    new_tags = sent_tags - current_tags
-
-    # 古いタグを消す
-    old_tags.each do |old|
-      pp Camera.find_by(name: old)
-      self.cameras.delete Camera.find_by(name: old)
-    end
-
-    # 新しいタグを保存
-    new_tags.each do |new|
-      new_post_tag = Camera.find_or_create_by(name: new)
-      pp new_post_tag
-      self.cameras << new_post_tag
-    end
+  def save_camera_tag(camera_name)
+  # find_or_create_by 新規である、又は、既存であるカメラ名を検索。新規だった場合は、そのnameでカメラレコードを一件作成する。
+    camera = Camera.find_or_create_by(name: camera_name)
+  # self モデルでselfというワードを書くと、モデルのインスタンス変数のことを指す。photo_controllerの@photo=selfということ。
+  # 既存の中間テーブルすべて消す（updateの時に使う）
+    self.photo_cameras.destroy_all
+  # 新規の中間テーブルを作成する（createとupdateの時に使う）。一番後ろのcameraは、60行目のcameraのこと。
+    self.photo_cameras.create(camera: camera)
+  
   end
 
   def save_editing_app_tag(sent_tags)

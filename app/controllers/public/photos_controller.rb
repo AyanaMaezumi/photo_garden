@@ -70,12 +70,12 @@ class Public::PhotosController < ApplicationController
     @photo.customer_id=current_customer.id
     # 受け取った値を,で区切って配列にする
     tag_list=params[:photo][:name_tags].split(',')
-    camera_tags=params[:photo][:camera_tags].split(',')
+    camera_name=params[:photo][:camera_name]
     #camera = @photo.cameras.new(name: params[:photo][:camera_tags])
     editing_app_list=params[:photo][:editing_app_tags].split(',')
     if @photo.save
       @photo.save_photo_tag(tag_list)
-      @photo.save_camera_tag(camera_tags)
+      @photo.save_camera_tag(camera_name)
       @photo.save_editing_app_tag(editing_app_list)
       redirect_to photo_path(@photo.id),notice:'投稿に成功しました'
     else
@@ -93,7 +93,7 @@ class Public::PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     #入力されたタグを受け取る
     tag_list=params[:photo][:name_tags].split(',')
-    camera_tags=params[:photo][:camera_tags].split(',')
+    camera_name=params[:photo][:camera_name]
     editing_app_list=params[:photo][:editing_app_tags].split(',')
     #もしphotoの情報が更新されたら
     if @photo.update(photo_params)
@@ -105,8 +105,7 @@ class Public::PhotosController < ApplicationController
         relation.delete
         end
          @photo.save_photo_tag(tag_list)
-         pp camera_tags
-         @photo.save_camera_tag(camera_tags)
+         @photo.save_camera_tag(camera_name)
          @photo.save_editing_app_tag(editing_app_list)
         redirect_to photo_path(@photo.id), notice: '更新完了しました'
       #else redirect_to photo_path, notice: '下書きに登録しました。'
