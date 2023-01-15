@@ -72,10 +72,10 @@ class Public::PhotosController < ApplicationController
     @photo = Photo.new(photo_params)
     @photo.customer_id=current_customer.id
     # 受け取った値を,で区切って配列にする
-    tag_names=params[:photo][:tag_names].split(',')
+    tag_names=params[:photo][:tag_names].split(',').uniq
     camera_name=params[:photo][:camera_name]
     #camera = @photo.cameras.new(name: params[:photo][:camera_tags])
-    editing_app_names=params[:photo][:editing_app_names].split(',')
+    editing_app_names=params[:photo][:editing_app_names].split(',').uniq
     if @photo.save
       @photo.save_photo_tag(tag_names)
       @photo.save_camera_tag(camera_name)
@@ -95,9 +95,9 @@ class Public::PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     #入力されたタグを受け取る
-    tag_names=params[:photo][:tag_names].split(',')
+    tag_names=params[:photo][:tag_names].split(',').uniq
     camera_name=params[:photo][:camera_name]
-    editing_app_names=params[:photo][:editing_app_names].split(',')
+    editing_app_names=params[:photo][:editing_app_names].split(',').uniq
     #もしphotoの情報が更新されたら
     if @photo.update(photo_params)
       #if params[:photo][:status]== "公開"

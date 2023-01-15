@@ -20,7 +20,8 @@
       <!--既に保存済みのデータを表示する。pluckは、呼び出したいデータを絞る（複数持ってくることも可）。-->
       <%= f.text_field :editing_app_names, value: @photo.editing_apps.pluck(:name).join(',') %><br>
       ※複数の加工アプリが登録できます。<br>
-      複数登録する場合は、文字と文字の間を『 , 』(半角カンマ)で区切ってください。<br>
+      複数登録する場合は、文字と文字の間を『 , 』(半角カンマ)で区切ってください。<br><br>
+      
     </div>
     
     <div class="field mt-4">
@@ -32,7 +33,8 @@
       <h4>タグ</h4>
       <%= f.text_field :tag_names, value: @photo.tags.pluck(:name).join(',') %><br>
       ※複数のタグが登録できます。<br>
-      複数登録する場合は、文字と文字の間を『 , 』(半角カンマ)で区切ってください。<br>
+      複数登録する場合は、文字と文字の間を『 , 』(半角カンマ)で区切ってください。<br><br>
+      
     </div>
   
     <div class="field mt-5">
