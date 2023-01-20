@@ -72,6 +72,7 @@ class Public::PhotosController < ApplicationController
     @photo = Photo.new(photo_params)
     @photo.customer_id=current_customer.id
     # 受け取った値を,で区切って配列にする
+    # uniqで、同じ名前のタグが入力されても一つにまとめられて投稿される。
     tag_names=params[:photo][:tag_names].split(',').uniq
     camera_name=params[:photo][:camera_name]
     #camera = @photo.cameras.new(name: params[:photo][:camera_tags])
