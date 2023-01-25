@@ -16,7 +16,7 @@
                 <div class="p-2">
                   <!-- 写真 -->
                   <%= link_to photo_path(photo.id) do %>
-                  <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
+                    <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
                   <% end %>
                 </div>
                 <div class="card-body">
@@ -25,7 +25,7 @@
                   </sapan>
                   <sapan>
                     <%= link_to customer_path(photo.customer.id) do %>
-                    <span class="photo-nickname"><i class="fas fa-user"></i> By <%= photo.customer.nickname %></span>
+                      <span class="photo-nickname"><i class="fas fa-user"></i> By <%= photo.customer.nickname %></span>
                     <% end %><br>
                   </sapan>
                 </div> 
@@ -45,7 +45,7 @@
               <div class="card">
                 <div class="p-2">
                 <!-- 写真 -->
-                <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
+                  <%= image_tag photo.get_image(400,400), class: "card-img-top img-thumbnail w-100" %>
                 </div>
                 <div class="card-body">
                   <sapan class="mr-3">

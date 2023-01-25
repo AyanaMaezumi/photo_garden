@@ -11,8 +11,8 @@
           <!--.left_joins(:customer).where('customers.is_deleted = ?', false)で退会者のタグは表示させない。.count != 0で、タグが0個以上のものを表示させる。-->
           <% if tag_list.photos.left_joins(:customer).where('customers.is_deleted = ?', false).count != 0 %>
             <%= link_to(photos_path(type: 'tag', id: tag_list.id), class: "badge badge-pill badge-info") do %>
-                <%=tag_list.name %>
-                <span class="badge badge-light"><%= tag_list.photos.left_joins(:customer).where('customers.is_deleted = ?', false).count %></span>
+              <%=tag_list.name %>
+              <span class="badge badge-light"><%= tag_list.photos.left_joins(:customer).where('customers.is_deleted = ?', false).count %></span>
             <% end %>
           <% end %>
         <% end %>
