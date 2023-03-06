@@ -14,9 +14,10 @@ class Admin::PhotosController < ApplicationController
     customer_id = @photo.customer_id
     # customer_nickname = @photo.customer_nickname # これはニックネームを取得できない
 
-    # Photoモデルにアソシエーションcustomerモデルのidカラムを取得する
+    # PhotoモデルにアソシエーションCustomerモデルのidカラムを取得する
     # customer_id = @photo.customer.id
-    # customer_nickname = @photo.customer.nickname # これはニックネームを取得できる
+    # 他例．customer_nickname = @photo.customer.nickname # これはニックネームを取得できる
+    
     @photo.destroy
     redirect_to admin_customer_path(customer_id)
   end

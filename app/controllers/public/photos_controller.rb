@@ -2,6 +2,7 @@ class Public::PhotosController < ApplicationController
 
   def index
     #検索をかけたときの挙動
+    #presentは、プログラムの処理の流れにおいて、変数の値が存在するか、しないかによって後続の処理を変更したい場面
     if params[:photo].present?
       if params[:photo][:radio] == 'camera'
         #photoに紐づくcamerasの情報を使えるようにする（joins）。

@@ -1,23 +1,29 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
+/*topページのサイト説明文背景画*/
 .top-img {
   background-image: url('../images/photo_garden_top.jpg');
 }
 
+/*Aboutページのサイト説明文背景画*/
 .back-img {
   background-image: url('../images/background.png');
 }
 
+/*img-thumbnail を指定すると、画像の周りに .25rem の枠線を描画する（並んでいる写真自体を囲んでいる白い枠）*/
+/*aspect-ratioは、ボックスの推奨アスペクト比を設定する。これがないと縦写真、横写真でバラバラの大きさになる。*/
 .img-thumbnail {
   object-fit: cover;
   aspect-ratio: 1/1;
 }
 
+/*カード内の写真の投稿者名の幅の高さ（写真一覧ページ）*/
 .photo-nickname {
   line-height: 70px;
 }
 
+/*gapは、行や列の間のすき間 (溝) を定義する（マイページ内の写真）*/
 .gap-2 {
   gap: 16px;
 }
@@ -27,6 +33,7 @@
   max-width: calc((100% - 16px - 16px) / 3);
 }
 
+/*検索ボックスレイアウト*/
 .box1 {
     padding: 0.5em 1em;
     margin: 2em 0;
@@ -58,6 +65,7 @@
   font-size: 20px;
 }
 
+/*検索窓を検索ボックスの中からはみ出さないように設置*/
 .search_field {
   width: 100% ;
 }

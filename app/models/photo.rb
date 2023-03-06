@@ -25,6 +25,8 @@ class Photo < ApplicationRecord
     favorites.exists?(customer_id: customer.id)
   end
 
+  # unlessとは、if文は条件の結果が真だったときに処理を実行しますが、それとは反対に、偽だったときに処理を実行するunless文という処理構文があります。
+  # image.attached?とは、imageに対して.attached?というimageが存在するかを確認するメソッドを呼び出しています。
   def get_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -48,12 +50,12 @@ class Photo < ApplicationRecord
   end
 
   def save_camera_tag(camera_name)
-  # find_or_create_by 新規である、又は、既存であるカメラ名を検索。新規だった場合は、そのnameでカメラレコードを一件作成する。
+    # find_or_create_by 新規である、又は、既存であるカメラ名を検索。新規だった場合は、そのnameでカメラレコードを一件作成する。
     camera = Camera.find_or_create_by(name: camera_name)
-  # self モデルでselfというワードを書くと、モデルのインスタンス変数のことを指す。photo_controllerの@photo=selfということ。
-  # 既存の中間テーブルすべて消す（updateの時に使う）
+    # self モデルでselfというワードを書くと、モデルのインスタンス変数のことを指す。photo_controllerの@photo=selfということ。
+    # 既存の中間テーブルすべて消す（updateの時に使う）
     self.photo_cameras.destroy_all
-  # 新規の中間テーブルを作成する（createとupdateの時に使う）。一番後ろのcameraは、60行目のcameraのこと。
+    # 新規の中間テーブルを作成する（createとupdateの時に使う）。一番後ろのcameraは、60行目のcameraのこと。
     self.photo_cameras.create(camera: camera)
   
   end
